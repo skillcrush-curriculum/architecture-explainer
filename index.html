@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 2 — How a Website REALLY Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600;700&family=Pacifico&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --hero:#effafa;
+    --active:rgb(254 242 241);
+    --mint:rgb(48 192 161);
+    --coral:rgb(250 166 158);
+    --coral-dark:#f1897e;
+    --tip-bg:rgb(240 249 254);
+    --ink:#000;
+    --line:#e3e3e3;
+    --line-dark:#cfcfcf;
+    --link-red:#e23b2e;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;border-radius:0;}
+
+  body{
+    font-family:'Open Sans',sans-serif;
+    color:var(--ink);
+    background:#fff;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3,h4,.mont{font-family:'Montserrat',sans-serif;color:var(--ink);}
+  .caps{text-transform:uppercase;letter-spacing:.04em;}
+
+  a{color:var(--link-red);text-decoration:underline;text-underline-offset:2px;}
+
+  /* ─────────── HERO ─────────── */
+  .hero{
+    background:var(--hero);
+    padding:34px 6vw 30px;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-top{display:flex;align-items:center;gap:16px;margin-bottom:22px;}
+  .logo{height:46px;width:auto;display:block;}
+  .logo-fallback{
+    font-family:'Montserrat';font-weight:900;font-size:1.05rem;letter-spacing:.02em;
+    color:var(--ink);display:none;line-height:1.1;
+  }
+  .logo-fallback span{color:var(--coral-dark);}
+  .lesson-kicker{display:none;}
+  .hero h1{font-weight:900;font-size:clamp(1.7rem,4.4vw,2.9rem);line-height:1.1;max-width:18ch;}
+  .hero p.sub{font-size:clamp(1rem,2vw,1.15rem);margin-top:12px;max-width:62ch;color:#1a1a1a;}
+
+  /* ─────────── STEPPER ─────────── */
+  .stepper-wrap{padding:26px 6vw 0;}
+  .stepper{
+    display:flex;gap:10px;flex-wrap:wrap;border:1px solid var(--line);
+    background:#fff;
+  }
+  .step-tab{
+    flex:1 1 160px;min-width:150px;display:flex;align-items:center;gap:12px;
+    padding:16px 18px;border-right:1px solid var(--line);cursor:pointer;
+    background:#fff;transition:background .18s;text-align:left;
+  }
+  .step-tab:last-child{border-right:none;}
+  .step-tab:hover{background:#fafafa;}
+  .step-tab.active{background:var(--active);}
+  .step-bullet{
+    flex:none;width:42px;height:42px;display:grid;place-items:center;
+    border:2px solid var(--line-dark);background:#fff;color:#9a9a9a;
+    transition:.18s;
+  }
+  .step-tab.active .step-bullet{border-color:var(--coral);color:var(--coral-dark);}
+  .step-tab.done .step-bullet{background:var(--mint);border-color:var(--mint);color:#fff;}
+  .step-bullet svg{width:22px;height:22px;}
+  .step-meta .num{
+    font-family:'Montserrat';font-weight:800;font-size:.62rem;letter-spacing:.16em;
+    text-transform:uppercase;color:#9a9a9a;
+  }
+  .step-tab.active .step-meta .num{color:var(--coral-dark);}
+  .step-tab.done .step-meta .num{color:var(--mint);}
+  .step-meta .name{font-family:'Montserrat';font-weight:800;font-size:.82rem;text-transform:uppercase;letter-spacing:.02em;line-height:1.2;}
+
+  /* ─────────── STAGE / CONTENT ─────────── */
+  main{padding:34px 6vw 10px;}
+  .panel{display:none;animation:fade .35s ease both;}
+  .panel.show{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+
+  .eyebrow{font-family:'Montserrat';font-weight:800;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--coral-dark);margin-bottom:8px;}
+  .panel h2{font-weight:900;font-size:clamp(1.5rem,3.4vw,2.2rem);line-height:1.12;margin-bottom:14px;}
+  .panel p.lead{font-size:1.08rem;max-width:66ch;margin-bottom:18px;}
+  .panel p{max-width:70ch;margin-bottom:14px;}
+  .feature{font-family:'Montserrat';font-weight:700;text-transform:uppercase;letter-spacing:.03em;}
+
+  /* buttons */
+  .btn{
+    font-family:'Montserrat';font-weight:800;text-transform:uppercase;letter-spacing:.06em;
+    background:var(--coral);color:#fff;border:none;padding:15px 30px;font-size:.9rem;
+    cursor:pointer;transition:background .18s,transform .12s;
+  }
+  .btn:hover{background:var(--coral-dark);}
+  .btn:active{transform:translateY(1px);}
+  .btn.ghost{background:#fff;color:var(--ink);border:2px solid var(--ink);}
+  .btn.ghost:hover{background:#f4f4f4;}
+  .btn:disabled{opacity:.45;cursor:not-allowed;}
+
+  /* ─────────── STEP 1: the form hook ─────────── */
+  .hook-grid{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:start;}
+  @media(max-width:840px){.hook-grid{grid-template-columns:1fr;}}
+
+  /* Sunny Side Kitchen form — matches the live site styling */
+  :root{
+    --flame:#FF6B35;--peach:#F7C59F;--cream:#FFFBF5;--charcoal:#2D2A26;
+    --mango:#FFAD3A;--sky:#FFF3E8;
+  }
+  .ssk{
+    background:#fff;border-radius:22px;padding:2.4rem;border:2.5px solid var(--peach);
+    font-family:'Nunito',sans-serif;color:var(--charcoal);
+  }
+  .ssk .form-title{font-family:'Pacifico',cursive;font-size:1.6rem;color:var(--charcoal);margin-bottom:.4rem;}
+  .ssk .form-sub{font-size:.88rem;color:#a09484;font-weight:600;margin-bottom:1.6rem;line-height:1.6;}
+  .ssk .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  .ssk .form-group{margin-bottom:1.1rem;}
+  .ssk .form-group label{display:block;font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--charcoal);margin-bottom:6px;}
+  .ssk .form-group input,
+  .ssk .form-group select{
+    width:100%;padding:12px 16px;border:2px solid #ede5db;border-radius:12px;
+    font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:600;color:var(--charcoal);
+    background:var(--cream);transition:border-color .2s;outline:none;appearance:none;
+  }
+  .ssk .form-group input:focus,
+  .ssk .form-group select:focus{border-color:var(--flame);}
+  .ssk .service-toggle{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-top:2px;}
+  .ssk .service-btn{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+    padding:12px 6px;border:2px solid #ede5db;border-radius:14px;background:var(--cream);
+    font-family:'Nunito',sans-serif;font-size:.86rem;font-weight:700;color:var(--charcoal);
+    cursor:pointer;transition:border-color .2s,background .2s,color .2s;line-height:1.3;
+  }
+  .ssk .service-btn:hover{border-color:var(--flame);background:var(--sky);}
+  .ssk .service-btn.active{border-color:var(--flame);background:var(--flame);color:#fff;}
+  .ssk .service-time{font-size:.66rem;font-weight:600;opacity:.75;letter-spacing:.02em;}
+  .ssk .submit-btn{
+    width:100%;background:var(--flame);color:#fff;font-family:'Nunito',sans-serif;font-weight:800;
+    font-size:.92rem;letter-spacing:.08em;text-transform:uppercase;border:none;padding:15px;
+    border-radius:99px;cursor:pointer;box-shadow:0 4px 16px rgba(255,107,53,.36);
+    transition:transform .18s,box-shadow .18s;margin-top:.4rem;
+  }
+  .ssk .submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,107,53,.44);}
+  .ssk-success{display:none;text-align:center;padding:2rem 1rem;}
+  .ssk-success.show{display:block;animation:pop .5s ease both;}
+  .ssk-success .big{font-size:3rem;display:block;margin-bottom:.6rem;}
+  .ssk-success .ttl{font-family:'Pacifico',cursive;font-size:1.6rem;color:var(--flame);margin-bottom:.5rem;}
+  .ssk-success .note{font-family:'Nunito',sans-serif;font-size:.92rem;font-weight:600;color:#a09484;}
+  @keyframes pop{0%{transform:scale(.7);opacity:0;}70%{transform:scale(1.06);}100%{transform:scale(1);opacity:1;}}
+
+  .reveal-box{border:2px solid var(--ink);background:#fff;padding:26px 26px;}
+  .reveal-box .stamp{font-size:2.4rem;display:block;margin-bottom:10px;}
+  .reveal-box h3{font-weight:900;font-size:1.4rem;margin-bottom:10px;}
+  .reveal-box .muted{opacity:.55;}
+  .detective{display:none;}
+  .detective.show{display:block;animation:fade .4s ease both;}
+  .search-anim{font-size:2rem;display:inline-block;animation:hunt 1.1s ease-in-out infinite;}
+  @keyframes hunt{0%,100%{transform:translateX(0) rotate(-8deg);}50%{transform:translateX(14px) rotate(8deg);}}
+
+  /* ─────────── DIAGRAM ─────────── */
+  .stage-hint{font-family:'Montserrat';font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:#777;margin-bottom:14px;}
+  .diagram{
+    position:relative;border:1px solid var(--line);background:
+      linear-gradient(0deg,#fcfcfc,#fcfcfc),
+      repeating-linear-gradient(45deg,#f6f6f6 0 12px,transparent 12px 24px);
+    padding:34px 24px;overflow:hidden;
+  }
+  .flow{display:flex;align-items:stretch;justify-content:center;gap:0;flex-wrap:wrap;}
+  .node{
+    position:relative;width:128px;flex:none;border:2px solid var(--ink);background:#fff;
+    padding:16px 10px 14px;text-align:center;cursor:pointer;transition:transform .15s,background .15s,box-shadow .15s;z-index:2;
+  }
+  .node:hover{background:var(--active);transform:translateY(-3px);}
+  .node.selected{background:var(--active);box-shadow:0 0 0 3px var(--coral);}
+  .node.lit{background:#fff6c4;box-shadow:0 0 0 4px var(--mint);transform:translateY(-3px);}
+  .node .ic{width:38px;height:38px;margin:0 auto 9px;color:var(--ink);}
+  .node .ic svg{width:100%;height:100%;}
+  .node .nm{font-family:'Montserrat';font-weight:800;font-size:.72rem;text-transform:uppercase;letter-spacing:.02em;line-height:1.15;}
+  .node .tg{font-size:.62rem;color:#666;margin-top:4px;font-weight:600;line-height:1.2;}
+  .arrow{display:flex;align-items:center;justify-content:center;width:34px;flex:none;color:#bdbdbd;font-size:1.4rem;font-weight:800;z-index:2;}
+  @media(max-width:760px){
+    .flow{flex-direction:column;align-items:center;}
+    .node{width:78%;max-width:280px;}
+    .arrow{transform:rotate(90deg);height:26px;width:auto;}
+  }
+
+  /* auth + ai branch nodes sit below */
+  .branch{display:flex;justify-content:center;gap:60px;margin-top:8px;flex-wrap:wrap;}
+  .branch-col{display:flex;flex-direction:column;align-items:center;}
+  .branch .connector{width:2px;height:22px;background:#bdbdbd;}
+  .node.ai{display:none;}
+  .diagram.ai-on .node.ai{display:block;animation:pop .5s ease both;}
+  .ai-label{display:none;}
+  .diagram.ai-on .ai-label{display:block;}
+
+  /* travelling packet */
+  .packet{
+    position:absolute;top:0;left:0;width:30px;height:30px;background:var(--coral);
+    border:2px solid var(--ink);display:none;place-items:center;z-index:5;
+    font-size:.9rem;transition:transform .85s cubic-bezier(.5,0,.3,1);pointer-events:none;
+  }
+  .packet.show{display:grid;}
+
+  /* info panel */
+  .info-panel{
+    margin-top:20px;border:2px solid var(--ink);background:#fff;min-height:120px;
+    padding:22px 24px;display:flex;gap:18px;align-items:flex-start;
+  }
+  .info-panel .pic{flex:none;width:54px;height:54px;border:2px solid var(--ink);display:grid;place-items:center;color:var(--ink);background:var(--active);}
+  .info-panel .pic svg{width:30px;height:30px;}
+  .info-panel .empty{color:#888;font-style:normal;}
+  .info-panel h4{font-weight:900;font-size:1.1rem;text-transform:uppercase;letter-spacing:.02em;margin-bottom:2px;}
+  .info-panel .badge{display:inline-block;font-family:'Montserrat';font-weight:800;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;background:var(--mint);color:#fff;padding:3px 9px;margin-bottom:8px;}
+  .info-panel .badge.gray{background:#ddd;color:#444;}
+  .info-panel p{margin:0;font-size:.96rem;}
+
+  /* caption bar for simulation */
+  .sim-controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:0 0 16px;}
+  .sim-counter{font-family:'Montserrat';font-weight:800;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:#777;padding:0 4px;}
+  .caption-bar{
+    margin-top:18px;border:2px solid var(--ink);background:var(--active);
+    padding:18px 22px;font-size:1.02rem;min-height:64px;display:flex;align-items:center;
+  }
+  .caption-bar .step-no{font-family:'Montserrat';font-weight:900;background:var(--ink);color:#fff;padding:4px 11px;margin-right:14px;flex:none;font-size:.8rem;}
+
+  /* ─────────── AI PLANNER (bonus) ─────────── */
+  .planner{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:22px;align-items:start;}
+  @media(max-width:840px){.planner{grid-template-columns:1fr;}}
+  .planner-card{border:2px solid var(--ink);background:#fff;padding:24px;}
+  .planner-card h4{font-weight:900;font-size:1.05rem;text-transform:uppercase;margin-bottom:16px;}
+  .vibe-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
+  .vibe{border:2px solid var(--line-dark);background:#fff;padding:14px 10px;cursor:pointer;font-family:'Montserrat';font-weight:800;font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;transition:.15s;text-align:center;}
+  .vibe .e{display:block;font-size:1.5rem;margin-bottom:5px;}
+  .vibe:hover{border-color:var(--coral);}
+  .vibe.on{background:var(--active);border-color:var(--coral);box-shadow:0 0 0 2px var(--coral);}
+  .result-card{border:2px solid var(--ink);background:#fff;padding:24px;min-height:230px;}
+  .result-empty{color:#888;display:flex;flex-direction:column;align-items:center;justify-content:center;height:200px;text-align:center;gap:10px;}
+  .thinking{display:none;flex-direction:column;align-items:center;justify-content:center;height:200px;gap:14px;text-align:center;}
+  .thinking.show{display:flex;}
+  .brain{font-size:2.6rem;animation:think 1s ease-in-out infinite;}
+  @keyframes think{0%,100%{transform:scale(1);}50%{transform:scale(1.18) rotate(6deg);}}
+  .dots span{animation:blink 1.2s infinite;font-weight:900;}
+  .dots span:nth-child(2){animation-delay:.2s;}
+  .dots span:nth-child(3){animation-delay:.4s;}
+  @keyframes blink{0%,80%,100%{opacity:.2;}40%{opacity:1;}}
+  .ai-out{display:none;animation:fade .4s ease both;}
+  .ai-out.show{display:block;}
+  .ai-out .tag{font-family:'Montserrat';font-weight:800;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;background:var(--ink);color:#fff;padding:4px 10px;display:inline-block;margin-bottom:14px;}
+  .ai-out h5{font-family:'Montserrat';font-weight:900;font-size:1.15rem;margin-bottom:10px;}
+  .ai-out ul{list-style:none;margin:0;padding:0;}
+  .ai-out li{padding:9px 0;border-bottom:1px dashed var(--line-dark);font-size:.96rem;display:flex;gap:10px;}
+  .ai-out li:last-child{border-bottom:none;}
+  .ai-out li .t{flex:none;font-family:'Montserrat';font-weight:800;color:var(--coral-dark);font-size:.78rem;width:64px;}
+
+  /* ─────────── TIPS BOX ─────────── */
+  .tip{
+    display:flex;gap:16px;align-items:flex-start;background:var(--tip-bg);
+    border:2px solid #bfe3f3;padding:20px 22px;margin-top:30px;
+  }
+  .tip .i{
+    flex:none;width:34px;height:34px;border-radius:50%;background:#fff;border:2px solid #79c4e6;
+    display:grid;place-items:center;font-family:'Montserrat';font-weight:900;font-style:italic;
+    color:#2b8fc0;font-size:1.05rem;
+  }
+  .tip .tip-body strong{font-family:'Montserrat';text-transform:uppercase;letter-spacing:.04em;font-size:.78rem;display:block;margin-bottom:4px;color:#1a6a93;}
+  .tip .tip-body p{margin:0;font-size:.95rem;color:#13455e;max-width:none;}
+
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-top">
+    <img class="logo" src="https://raw.githubusercontent.com/skillcrush-curriculum/skillcrush-by-ptf-logo/main/skillcrush-by-ptf-2x.png" alt="Skillcrush by PowerToFly logo"
+         onerror="this.style.display='none';document.getElementById('logoFb').style.display='block';">
+    <div class="logo-fallback" id="logoFb">SKILLCRUSH<span> by </span>PTF</div>
+  </div>
+  <h1>How a Website <em>Really</em> Works</h1>
+  <p class="sub">You built a gorgeous website last lesson. 🎉 But what <em>actually happens</em> when someone clicks a button? Let's peek behind the curtain — no code, just the big, friendly picture.</p>
+</header>
+
+<!-- STEPPER -->
+<div class="stepper-wrap">
+  <div class="stepper" id="stepper">
+    <button class="step-tab" data-step="0">
+      <span class="step-bullet" data-icon>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h18v13H3z" opacity=".25"/><path d="M2 3h20v15H2zM4 5v3h16V5zM4 10v6h16v-6z"/><path d="M9 21h6v1.5H9z"/></svg>
+      </span>
+      <span class="step-meta"><span class="num">Step 1</span><span class="name">The Magic Trick</span></span>
+    </button>
+    <button class="step-tab" data-step="1">
+      <span class="step-bullet" data-icon>
+        <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="3"/><circle cx="19" cy="6" r="3"/><circle cx="19" cy="18" r="3"/><path d="M6.5 11 17 6.8l.7 1.8L7.2 12.8zM6.5 13l10.5 4.2-.7 1.8L5.8 14.8z"/></svg>
+      </span>
+      <span class="step-meta"><span class="num">Step 2</span><span class="name">Meet The Team</span></span>
+    </button>
+    <button class="step-tab" data-step="2">
+      <span class="step-bullet" data-icon>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 12 22 3l-5 18-4-7z"/><path d="m13 14 9-11-7 13z" opacity=".4"/></svg>
+      </span>
+      <span class="step-meta"><span class="num">Step 3</span><span class="name">Follow The Booking</span></span>
+    </button>
+    <button class="step-tab" data-step="3">
+      <span class="step-bullet" data-icon>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.4 5.6L20 10l-5.6 2.4L12 18l-2.4-5.6L4 10l5.6-2.4z"/><path d="m18 15 1 2.3L21 18l-2 .7L18 21l-1-2.3L15 18l2-.7z"/></svg>
+      </span>
+      <span class="step-meta"><span class="num">Bonus</span><span class="name">Add Some AI ✨</span></span>
+    </button>
+  </div>
+</div>
+
+<main>
+
+  <!-- ════════════ STEP 1 ════════════ -->
+  <section class="panel" data-panel="0">
+    <div class="eyebrow">Step 1 · The Magic Trick 🪄</div>
+    <h2>Try booking a table at Sunny Side Kitchen!</h2>
+    <p class="lead">This is the exact website you helped design. Go ahead — fill it in and hit the button. Watch what happens.</p>
+
+    <div class="hook-grid">
+      <!-- mini site -->
+      <div class="ssk">
+        <div id="formWrap">
+          <h3 class="form-title">Book a Table 🍽️</h3>
+          <p class="form-sub">Reserve your spot in just a few clicks. We'll confirm your booking via email — see you soon! ☀️</p>
+          <div class="form-row">
+            <div class="form-group"><label>First Name</label><input id="f_name" type="text" placeholder="Maya"></div>
+            <div class="form-group"><label>Party Size</label>
+              <select id="f_size"><option>2 guests</option><option>1 guest</option><option>3 guests</option><option>4 guests</option><option>5+ guests</option></select>
+            </div>
+          </div>
+          <div class="form-group"><label>Email Address</label><input id="f_email" type="email" placeholder="you@example.com"></div>
+          <div class="form-group"><label>Date</label><input id="f_date" type="date"></div>
+          <div class="form-group">
+            <label>Service</label>
+            <div class="service-toggle">
+              <button type="button" class="service-btn" onclick="pickService(this)">🌅 Breakfast<span class="service-time">8 – 11:30am</span></button>
+              <button type="button" class="service-btn" onclick="pickService(this)">☀️ Lunch<span class="service-time">12 – 3pm</span></button>
+              <button type="button" class="service-btn" onclick="pickService(this)">🌙 Dinner<span class="service-time">5 – 10pm</span></button>
+            </div>
+          </div>
+          <button class="submit-btn" onclick="bookTable()">Book My Table ☀️</button>
+        </div>
+        <div class="ssk-success" id="confetti">
+          <span class="big">🎉</span>
+          <div class="ttl">Table booked!</div>
+          <p class="note">We'll email your confirmation shortly. See you at the table!</p>
+        </div>
+      </div>
+
+      <!-- reveal -->
+      <div class="reveal-box">
+        <div id="revealWait">
+          <span class="stamp">👈</span>
+          <h3>Looks perfect, right?</h3>
+          <p>Fill out the form and click <span class="feature">Book My Table</span>. You'll get a happy confirmation message…</p>
+          <p class="muted">…and then we'll ask one sneaky little question.</p>
+        </div>
+
+        <div class="detective" id="detective">
+          <span class="search-anim">🔎</span>
+          <h3 style="margin-top:10px;">But wait… where did that booking actually GO?</h3>
+          <p id="detLine1">Let's check the kitchen for Maya's reservation…</p>
+          <div id="detResult" style="display:none;">
+            <p><strong>Nowhere. 👻</strong> The website happily threw confetti… but <span class="feature">nobody wrote the booking down.</span> No email was sent. The kitchen has <em>no idea</em> Maya is coming!</p>
+            <p>Why? Because a pretty page is only <strong>one layer</strong> of a real web app. The button looked like it worked — but there was nothing behind it to do the actual work.</p>
+            <p style="margin-bottom:0;">Let's meet <em>all</em> the layers that make a website truly come alive. 👉</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip">
+      <span class="i">i</span>
+      <div class="tip-body">
+        <strong>Pro Tip</strong>
+        <p>A confirmation message on screen doesn't always mean something really happened behind the scenes! Real apps have to <em>save</em> your info somewhere safe. Coming up: exactly how that works.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════ STEP 2 ════════════ -->
+  <section class="panel" data-panel="1">
+    <div class="eyebrow">Step 2 · Meet The Team 🧩</div>
+    <h2>A website works just like a busy restaurant 🍽️</h2>
+    <p class="lead">Every part of Sunny Side Kitchen has one important job — and a website is built the exact same way! <span class="feature">Tap any box</span> below to meet that part of the restaurant and find out why it matters.</p>
+
+    <div class="stage-hint">👆 Tap a box to explore it</div>
+    <div id="diagramHost"></div>
+
+    <div class="tip">
+      <span class="i">i</span>
+      <div class="tip-body">
+        <strong>What You'll Learn Here</strong>
+        <p>In this bootcamp you'll master the two big languages this team speaks: <strong>JavaScript + React</strong> for the frontend (the part you see) and <strong>Python + Flask</strong> for the backend (the brains). Tap the boxes above to meet them both!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════ STEP 3 ════════════ -->
+  <section class="panel" data-panel="2">
+    <div class="eyebrow">Step 3 · Follow The Booking 📦</div>
+    <h2>Now watch a <em>real</em> booking travel through the restaurant</h2>
+    <p class="lead">Last time, your booking stopped at the front door. In a <span class="feature">complete</span> web app, your order travels all the way through the restaurant and back again. Step through it at your own pace — tap <span class="feature">Next</span> when you're ready to follow your order to the next stop!</p>
+
+    <div class="sim-controls">
+      <button class="btn ghost" id="simBack" onclick="simStep(-1)" disabled>&lt; Back</button>
+      <span class="sim-counter" id="simCounter">Ready to start</span>
+      <button class="btn" id="simNext" onclick="simStep(1)">▶ Begin The Journey</button>
+      <button class="btn ghost" id="simReplay" onclick="resetSimulation()" style="display:none;">↺ Replay</button>
+    </div>
+
+    <div id="diagramHost2"></div>
+    <div class="caption-bar" id="captionBar">
+      <span class="step-no">GO</span>
+      <span id="captionText">Press <strong>“Begin The Journey”</strong>, then tap <strong>Next</strong> to walk the package from box to box, one step at a time. 🚀</span>
+    </div>
+
+    <div class="tip">
+      <span class="i">i</span>
+      <div class="tip-body">
+        <strong>Why This Matters</strong>
+        <p>Every arrow you just watched is a real conversation between layers. When something breaks in a real app, developers follow this <em>exact</em> path to hunt down the problem — like detectives! 🕵️</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════ BONUS ════════════ -->
+  <section class="panel" data-panel="3">
+    <div class="eyebrow">Bonus · Add Some AI ✨</div>
+    <h2>The restaurant calls in a guest chef 👨‍🍳</h2>
+    <p class="lead">Sunny Side Kitchen wants to <span class="feature">wow</span> diners: pick a day, pick a vibe, and a brilliant <strong>AI guest chef</strong> cooks up a fun activity to enjoy after your meal. Pick your vibe, then step through the journey to watch the order reach the chef!</p>
+
+    <div class="planner">
+      <div class="planner-card">
+        <h4>🗓️ Plan My Day Out</h4>
+        <div class="fld"><label>Which day are you visiting?</label>
+          <select id="ai_day"><option>Friday</option><option>Saturday</option><option>Sunday</option><option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option></select>
+        </div>
+        <label style="display:block;font-family:'Montserrat';font-weight:700;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;margin:6px 0 10px;">Pick your vibe</label>
+        <div class="vibe-grid" id="vibeGrid">
+          <button class="vibe" data-vibe="adventurous"><span class="e">🧗</span>Adventurous</button>
+          <button class="vibe" data-vibe="cultured"><span class="e">🎭</span>Cultured</button>
+          <button class="vibe" data-vibe="relaxed"><span class="e">🌿</span>Relaxed</button>
+          <button class="vibe" data-vibe="foodie"><span class="e">🍰</span>Foodie</button>
+        </div>
+        <button class="btn" style="width:100%;" id="planBtn" onclick="planDay()">✨ Send It To The Kitchen!</button>
+      </div>
+
+      <div class="result-card">
+        <div class="result-empty" id="aiEmpty">
+          <span style="font-size:2.4rem;">👨‍🍳</span>
+          <p style="max-width:26ch;">Pick a vibe, tap <strong>Send It To The Kitchen!</strong>, then step through the journey to meet the guest chef.</p>
+        </div>
+        <div class="thinking" id="aiThinking">
+          <span class="brain">👨‍🍳</span>
+          <p class="mont caps" style="font-size:.8rem;letter-spacing:.1em;">The guest chef is cooking<span class="dots"><span>.</span><span>.</span><span>.</span></span></p>
+        </div>
+        <div class="ai-out" id="aiOut"></div>
+      </div>
+    </div>
+
+    <div class="stage-hint" style="margin-top:30px;">Here's where the guest chef plugs into the restaurant 👇</div>
+    <div id="diagramHost3"></div>
+
+    <div class="sim-controls">
+      <button class="btn ghost" id="aiBack" onclick="aiStep(-1)" disabled>&lt; Back</button>
+      <span class="sim-counter" id="aiCounter">Pick a vibe to begin</span>
+      <button class="btn ghost" id="aiNext" onclick="aiStep(1)" disabled>Next &gt;</button>
+      <button class="btn ghost" id="aiReplay" onclick="resetAi()" style="display:none;">↺ Start Over</button>
+    </div>
+    <div class="caption-bar" id="aiCaption">
+      <span class="step-no">AI</span>
+      <span id="aiCaptionText">Pick a vibe and tap <strong>“Send It To The Kitchen!”</strong> to start the order on its journey to the guest chef. ✨</span>
+    </div>
+
+    <div class="tip">
+      <span class="i">i</span>
+      <div class="tip-body">
+        <strong>The Big Reveal 🚀</strong>
+        <p>Notice the guest chef didn't replace anyone — they're a brand-new station that plugs right into the kitchen. Knowing how all the parts of the restaurant fit together is exactly what lets you safely bring in superpowers like AI. That's the whole point of becoming a developer — and it's what our <strong>final course, Generative AI Web Apps,</strong> is all about!</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+/* ─────────────── NODE DATA ─────────────── */
+const ICONS = {
+  user:'<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg>',
+  browser:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 3h20v18H2z" opacity=".15"/><path d="M2 3h20v5H2zm2 2v1h2V5zm3 0v1h2V5z"/><path d="M2 8h20v13H2zm2 2v9h16v-9z" /></svg>',
+  frontend:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0 0 20c1.4 0 2.2-1.3 1.6-2.4-.5-1 .2-2.1 1.4-2.1H17a5 5 0 0 0 5-5c0-5.2-4.6-8.5-10-8.5zM6.5 12a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm3.5-4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm3.5 4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/></svg>',
+  api:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 11h13l-3.5-3.5L14 6l6 6-6 6-1.5-1.5L16 13H3z"/><path d="M3 7h6v2H3zm0 8h6v2H3z" opacity=".4"/></svg>',
+  backend:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v6H3zm0 8h18v6H3z"/><circle cx="7" cy="6" r="1.2" fill="#fff"/><circle cx="7" cy="14" r="1.2" fill="#fff"/></svg>',
+  database:'<svg viewBox="0 0 24 24" fill="currentColor"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5c0 1.7-3.6 3-8 3S4 6.7 4 5z"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6c0 1.7-3.6 3-8 3s-8-1.3-8-3z"/></svg>',
+  auth:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 10V7a6 6 0 0 1 12 0v3h1v12H5V10zm3 0h6V7a3 3 0 0 0-6 0z"/><circle cx="12" cy="15" r="1.6" fill="#fff"/></svg>',
+  ai:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 2h6v2h2a3 3 0 0 1 3 3v2h2v3h-2v3a3 3 0 0 1-3 3h-2v2H9v-2H7a3 3 0 0 1-3-3v-3H2V9h2V7a3 3 0 0 1 3-3h2z"/><circle cx="9.5" cy="11" r="1.5" fill="#fff"/><circle cx="14.5" cy="11" r="1.5" fill="#fff"/><path d="M9 15h6v1.5H9z" fill="#fff"/></svg>'
+};
+
+const NODES = {
+  user:{name:'You',tag:'A hungry guest!',badge:null,
+    body:"That's you — a hungry guest who just walked in wanting something, like booking a table at Sunny Side Kitchen. 🙋 Every single part of the restaurant exists to take care of this one person: YOU!"},
+  browser:{name:'The Dining Room',tag:'Chrome, Safari…',badge:null,
+    body:"The browser is the dining room you step into — Chrome, Safari, or Edge. 🍽️ It's the space where the whole experience is set out in front of you: the lighting, the tables, the menus. It doesn't cook anything itself — it just lays everything out nicely so you can see it and settle in."},
+  frontend:{name:'The Menu & Décor',tag:'Built with React',badge:'React',
+    body:"The frontend is everything you see and touch once you're seated — the menu, the décor, the little card you fill in to book a table. 🎨 It's the part designed to look lovely and be easy to use. You'll build this with React, a tool that lets you create it from small reusable pieces — like a place setting you can lay out at every table. 🍴 The pretty Sunny Side page you made? That's all menu and décor!"},
+  api:{name:'The Waiter',tag:'Takes your order',badge:null,
+    body:"The waiter is the messenger. 🤵 You don't march into the kitchen yourself — you hand your order to the waiter, who carries it back to the chefs and returns with your food. The API does exactly this: it carries requests from the menu (frontend) to the kitchen (backend) and brings the answer back. It's the polite set of rules for how the front of house and the kitchen talk."},
+  backend:{name:'The Kitchen',tag:'Python + Flask',badge:'Python · Flask',
+    body:"The kitchen is where the real cooking and the big decisions happen, out of sight behind the doors. 🍳 “Is this table free tonight? Yes — fire the order!” This is the brain of the restaurant. You'll build kitchens like this with Python using a tool called Flask. It's the exact piece your website was missing — a gorgeous menu with no kitchen behind it!"},
+  database:{name:'The Pantry',tag:'Stores everything',badge:null,
+    body:"The pantry is the restaurant's memory — the shelves, the walk-in fridge, and the big reservation logbook 📒 where everything important is written down and kept. Bookings, guest details, orders — all stored here so they're still there tomorrow. Without a pantry, the kitchen would forget every order the second it was made!"},
+  auth:{name:'The Host',tag:'Checks the list',badge:null,
+    body:"The host at the front door checks who you are before you're seated — “Do you have a reservation? Name, please!” 🛎️ That's exactly what logging in with a username and password does. The host makes sure you only get shown to YOUR table and YOUR booking, never someone else's. Keeping every guest safe and sorted! (You'll explore this more next lesson.)"},
+  ai:{name:'The Guest Chef',tag:'Generative AI (LLM)',badge:'LLM',
+    body:"This is the magic ✨ — a brilliant guest chef the kitchen can phone up at any moment, like the AI brain behind tools such as Claude. 👨‍🍳 Ask it to invent something on the spot — say, a custom fun day out for a diner — and it whips up a fresh, creative answer instantly. It's a whole new station that plugs into your kitchen, and learning to wire one in is what our final course, Generative AI Web Apps, is all about!"}
+};
+
+/* ─────────────── BUILD DIAGRAM ─────────────── */
+function diagramHTML(){
+  const main = ['user','browser','frontend','api','backend','database'];
+  let row = '<div class="flow">';
+  main.forEach((k,i)=>{
+    row += nodeHTML(k);
+    if(i<main.length-1) row+='<div class="arrow">&rarr;</div>';
+  });
+  row += '</div>';
+
+  const branch = `
+    <div class="branch">
+      <div class="branch-col">
+        <div class="connector"></div>
+        ${nodeHTML('auth')}
+        <div class="ai-label" style="height:0;"></div>
+      </div>
+      <div class="branch-col">
+        <div class="connector"></div>
+        ${nodeHTML('ai')}
+      </div>
+    </div>`;
+
+  return `<div class="diagram"><div class="packet" data-packet>📦</div>${row}${branch}</div>`;
+}
+function nodeHTML(k){
+  const n=NODES[k];
+  return `<div class="node ${k==='ai'?'ai':''}" data-node="${k}">
+    <div class="ic">${ICONS[k]}</div>
+    <div class="nm">${n.name}</div>
+    <div class="tg">${n.tag}</div>
+  </div>`;
+}
+function infoPanelHTML(){
+  return `<div class="info-panel" data-info>
+    <div class="pic" data-info-pic style="background:#f4f4f4;">👆</div>
+    <div><h4 data-info-title>Tap a box to explore!</h4>
+    <p class="empty" data-info-body>Each box is a different team member. Click any of them above to find out what they do and why a website needs them.</p></div>
+  </div>`;
+}
+
+/* mount diagrams into the three hosts */
+function mountDiagram(hostId, withInfo){
+  const host=document.getElementById(hostId);
+  host.innerHTML = diagramHTML() + (withInfo?infoPanelHTML():'');
+  // wire node clicks
+  host.querySelectorAll('.node').forEach(node=>{
+    node.addEventListener('click',()=>selectNode(host,node.dataset.node));
+  });
+}
+function selectNode(host,key){
+  host.querySelectorAll('.node').forEach(n=>n.classList.toggle('selected',n.dataset.node===key));
+  const info=host.querySelector('[data-info]');
+  if(!info) return;
+  const n=NODES[key];
+  host.querySelector('[data-info-pic]').innerHTML=ICONS[key];
+  host.querySelector('[data-info-pic]').style.background='var(--active)';
+  host.querySelector('[data-info-title]').textContent=n.name.toUpperCase();
+  const bodyEl=host.querySelector('[data-info-body]');
+  bodyEl.classList.remove('empty');
+  bodyEl.innerHTML=(n.badge?`<span class="badge">${n.badge}</span><br>`:'')+n.body;
+}
+
+mountDiagram('diagramHost', true);
+mountDiagram('diagramHost2', false);
+mountDiagram('diagramHost3', false);
+// turn the bonus diagram's AI layer on
+document.querySelector('#diagramHost3 .diagram').classList.add('ai-on');
+
+/* ─────────────── STEP 1: form hook ─────────────── */
+function pickService(btn){
+  document.querySelectorAll('.ssk .service-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function bookTable(){
+  document.getElementById('formWrap').style.display='none';
+  document.getElementById('confetti').classList.add('show');
+  // after a beat, run the detective reveal in the right column
+  setTimeout(()=>{
+    document.getElementById('revealWait').style.display='none';
+    const det=document.getElementById('detective');
+    det.classList.add('show');
+    setTimeout(()=>{
+      document.getElementById('detLine1').innerHTML='Searching the kitchen… checking the database… looking for an email…';
+    },900);
+    setTimeout(()=>{
+      document.getElementById('detResult').style.display='block';
+      document.querySelector('#detective .search-anim').style.animation='none';
+      document.querySelector('#detective .search-anim').textContent='👻';
+    },2200);
+  },650);
+}
+
+/* ─────────────── STEP 3: simulation ─────────────── */
+const SIM=[
+  {node:'user',no:'1',text:"🙋 <strong>You</strong>, the hungry guest, decide to book a table and fill in the little reservation card."},
+  {node:'frontend',no:'2',text:"🎨 The <strong>menu &amp; décor (frontend / React)</strong> neatly bundles up your name, date and party size into one tidy order."},
+  {node:'api',no:'3',text:"🤵 The <strong>waiter (API)</strong> picks up your order and hurries it toward the back of the restaurant."},
+  {node:'auth',no:'4',text:"🛎️ First stop — the <strong>host (authentication)</strong> checks: “Is this a real guest who's allowed to book?” ✅ All good — come on in!"},
+  {node:'backend',no:'5',text:"🍳 The <strong>kitchen (Python + Flask)</strong> reads the order and decides: “Table's free tonight — let's make it happen!”"},
+  {node:'database',no:'6',text:"📒 The booking is written into the <strong>pantry's reservation logbook (database)</strong> — saved for good!"},
+  {node:'backend',no:'7',text:"✅ The <strong>kitchen</strong> plates up a “Success!” and sends it back out the doors."},
+  {node:'api',no:'8',text:"🤵 The <strong>waiter (API)</strong> carries the good news back across the restaurant."},
+  {node:'frontend',no:'9',text:"🎨 The <strong>menu &amp; décor (frontend)</strong> updates itself with a happy confirmation."},
+  {node:'browser',no:'10',text:"🍽️ The <strong>dining room (browser)</strong> paints that confirmation up on your screen."},
+  {node:'user',no:'11',text:"🎉 And <strong>you</strong>, the guest, see “Table booked!” — for REAL this time. THAT'S the full round trip your website was missing!"}
+];
+let simIndex=-1; // -1 = not started
+function renderSim(){
+  const host=document.getElementById('diagramHost2');
+  const packet=host.querySelector('[data-packet]');
+  const back=document.getElementById('simBack');
+  const next=document.getElementById('simNext');
+  const replay=document.getElementById('simReplay');
+  const counter=document.getElementById('simCounter');
+
+  if(simIndex<0){
+    clearLit(host);
+    packet.classList.remove('show');
+    document.querySelector('#captionBar .step-no').textContent='GO';
+    document.getElementById('captionText').innerHTML='Press <strong>“Begin The Journey”</strong>, then tap <strong>Next</strong> to walk the package from box to box, one step at a time. 🚀';
+    back.disabled=true;
+    next.style.display='';
+    next.disabled=false;
+    next.innerHTML='▶ Begin The Journey';
+    replay.style.display='none';
+    counter.textContent='Ready to start';
+    return;
+  }
+
+  const s=SIM[simIndex];
+  packet.classList.add('show');
+  clearLit(host);
+  host.querySelector(`.node[data-node="${s.node}"]`).classList.add('lit');
+  positionPacket(host,packet,s.node);
+  document.querySelector('#captionBar .step-no').textContent=s.no;
+  document.getElementById('captionText').innerHTML=s.text;
+  counter.textContent=`Stage ${simIndex+1} of ${SIM.length}`;
+
+  back.disabled=(simIndex===0);
+  if(simIndex>=SIM.length-1){
+    next.style.display='none';
+    replay.style.display='';
+  } else {
+    next.style.display='';
+    next.disabled=false;
+    next.innerHTML='Next &gt;';
+    replay.style.display='none';
+  }
+}
+function simStep(dir){
+  if(simIndex<0){
+    if(dir>0) simIndex=0;
+  } else {
+    simIndex=Math.max(0,Math.min(SIM.length-1,simIndex+dir));
+  }
+  renderSim();
+}
+function positionPacket(host,packet,nodeKey){
+  const diagram=host.querySelector('.diagram');
+  const node=host.querySelector(`.node[data-node="${nodeKey}"]`);
+  const dRect=diagram.getBoundingClientRect();
+  const nRect=node.getBoundingClientRect();
+  const x=nRect.left-dRect.left+nRect.width/2-15;
+  const y=nRect.top-dRect.top+nRect.height/2-15;
+  packet.style.transform=`translate(${x}px,${y}px)`;
+}
+function clearLit(host){host.querySelectorAll('.node').forEach(n=>n.classList.remove('lit'));}
+function resetSimulation(){
+  simIndex=-1;
+  renderSim();
+}
+
+/* ─────────────── BONUS: AI planner ─────────────── */
+let chosenVibe=null;
+document.querySelectorAll('#vibeGrid .vibe').forEach(v=>{
+  v.addEventListener('click',()=>{
+    document.querySelectorAll('#vibeGrid .vibe').forEach(x=>x.classList.remove('on'));
+    v.classList.add('on');
+    chosenVibe=v.dataset.vibe;
+    resetAi();
+  });
+});
+const PLANS={
+  adventurous:[
+    {title:"An afternoon of bay-side thrills 🧗",items:[["1:30","Rent a tandem kayak and paddle along the waterfront — wave to the sea lions!"],["3:30","Tackle a beginner-friendly climbing wall just two blocks away."],["5:00","Cool down with a sunset bike ride across the bridge."]]},
+    {title:"A go-big outdoor quest 🚵",items:[["1:00","Hit the coastal trail for a scenic 3-mile hike with ocean views."],["3:30","Try a beginner surf lesson — boards and wetsuit included!"],["5:30","Toast your bravery with smoothies at the pier."]]}
+  ],
+  cultured:[
+    {title:"A day among art & history 🎭",items:[["1:30","Wander the modern art museum — don't miss the rooftop sculpture garden."],["3:30","Catch a matinee at the historic downtown theater."],["5:30","Browse the indie bookshop and grab a coffee upstairs."]]},
+    {title:"A creative-soul stroll 🖼️",items:[["1:00","Tour the local artists' studios in the gallery district."],["3:00","Join a drop-in pottery class — make a little keepsake bowl."],["5:00","End at a live jazz café with cozy lighting."]]}
+  ],
+  relaxed:[
+    {title:"A slow, sunny wind-down 🌿",items:[["1:30","Find a quiet park bench and people-watch with a good book."],["3:00","Treat yourself to a gentle spa foot soak nearby."],["5:00","Catch the sunset from a hammock garden café."]]},
+    {title:"Pure cozy mode 🍵",items:[["1:00","Sip tea at a tucked-away garden teahouse."],["3:00","Take a calm botanical-garden stroll among the flowers."],["4:30","Settle in for a feel-good movie at a comfy boutique cinema."]]}
+  ],
+  foodie:[
+    {title:"A delicious tasting trail 🍰",items:[["1:30","Hit the artisan chocolate shop for a guided truffle tasting."],["3:00","Join a walking food tour of the historic market stalls."],["5:00","Finish with scoops at the famous handmade gelato bar."]]},
+    {title:"Sweet-tooth adventure 🧁",items:[["1:00","Take a hands-on macaron-making class — eat your homework!"],["3:00","Sample local cheeses and breads at the farmers' market."],["5:00","Cap it off with a dessert flight at a rooftop patisserie."]]}
+  ]
+};
+
+const AI_SIM=[
+  {node:'frontend',no:'1',text:"🎨 You tell the <strong>menu (frontend / React)</strong> your day and your vibe — your special request gets bundled up."},
+  {node:'api',no:'2',text:"🤵 The <strong>waiter (API)</strong> carries your request back toward the kitchen."},
+  {node:'backend',no:'3',text:"🍳 The <strong>kitchen (Python + Flask)</strong> sees this needs real creativity — time to call in a specialist!"},
+  {node:'ai',no:'4',text:"✨ The <strong>guest chef (AI / LLM)</strong> dreams up a one-of-a-kind plan, made just for your vibe…"},
+  {node:'backend',no:'5',text:"🍽️ The <strong>kitchen</strong> takes the guest chef's idea and plates it up beautifully."},
+  {node:'frontend',no:'6',text:"🎉 Back through the waiter, into the dining room, and onto your screen — here's your custom plan. Bon appétit, then go have fun!"}
+];
+let aiIndex=-1;
+let aiResultHTML='';
+
+function planDay(){ // "Send It To The Kitchen!" — starts the journey
+  if(!chosenVibe){ alert("Pick a vibe first! 🌈"); return; }
+  const day=document.getElementById('ai_day').value;
+  const opts=PLANS[chosenVibe];
+  const pick=opts[Math.floor(Math.random()*opts.length)];
+  const li=pick.items.map(it=>`<li><span class="t">${it[0]}</span><span>${it[1]}</span></li>`).join('');
+  aiResultHTML=`<span class="tag">👨‍🍳 Cooked up by the guest chef (AI)</span>
+    <h5>${pick.title}</h5>
+    <p style="margin:0 0 12px;font-size:.92rem;color:#555;">After your meal at Sunny Side Kitchen this <strong>${day}</strong>, here's a <strong>${chosenVibe}</strong> plan made just for you:</p>
+    <ul>${li}</ul>`;
+  document.getElementById('planBtn').disabled=true;
+  aiIndex=0;
+  renderAi();
+}
+function aiStep(dir){
+  if(aiIndex<0) return;
+  aiIndex=Math.max(0,Math.min(AI_SIM.length-1,aiIndex+dir));
+  renderAi();
+}
+function renderAi(){
+  const host=document.getElementById('diagramHost3');
+  const packet=host.querySelector('[data-packet]');
+  const back=document.getElementById('aiBack');
+  const next=document.getElementById('aiNext');
+  const replay=document.getElementById('aiReplay');
+  const counter=document.getElementById('aiCounter');
+  const empty=document.getElementById('aiEmpty');
+  const thinking=document.getElementById('aiThinking');
+  const out=document.getElementById('aiOut');
+
+  if(aiIndex<0){ // not started
+    clearLit(host);
+    packet.classList.remove('show');
+    empty.style.display='';
+    thinking.classList.remove('show');
+    out.classList.remove('show');
+    back.disabled=true;
+    next.disabled=true;
+    replay.style.display='none';
+    next.style.display='';
+    document.querySelector('#aiCaption .step-no').textContent='AI';
+    document.getElementById('aiCaptionText').innerHTML='Pick a vibe and tap <strong>“Send It To The Kitchen!”</strong> to start the order on its journey to the guest chef. ✨';
+    counter.textContent=chosenVibe?'Ready — send it!':'Pick a vibe to begin';
+    return;
+  }
+
+  const s=AI_SIM[aiIndex];
+  const last=(aiIndex>=AI_SIM.length-1);
+  packet.classList.add('show');
+  clearLit(host);
+  host.querySelector(`.node[data-node="${s.node}"]`).classList.add('lit');
+  positionPacket(host,packet,s.node);
+  document.querySelector('#aiCaption .step-no').textContent=s.no;
+  document.getElementById('aiCaptionText').innerHTML=s.text;
+  counter.textContent=`Stage ${aiIndex+1} of ${AI_SIM.length}`;
+
+  // result card: cooking until the final stage, then reveal
+  empty.style.display='none';
+  if(last){
+    thinking.classList.remove('show');
+    out.innerHTML=aiResultHTML;
+    out.classList.add('show');
+  } else {
+    out.classList.remove('show');
+    thinking.classList.add('show');
+  }
+
+  back.disabled=(aiIndex===0);
+  if(last){ next.style.display='none'; replay.style.display=''; }
+  else { next.style.display=''; next.disabled=false; replay.style.display='none'; }
+}
+function resetAi(){
+  aiIndex=-1;
+  document.getElementById('planBtn').disabled=false;
+  renderAi();
+}
+
+/* ─────────────── STEP NAVIGATION ─────────────── */
+const STEP_COUNT=4;
+let current=0;
+const visited=new Set([0]);
+
+function renderStepper(){
+  document.querySelectorAll('.step-tab').forEach(tab=>{
+    const s=+tab.dataset.step;
+    tab.classList.toggle('active',s===current);
+    const done=(s<current)||(visited.has(s)&&s!==current);
+    tab.classList.toggle('done',done && s!==current);
+    // swap bullet to checkmark when done (and not the active one)
+    const bullet=tab.querySelector('[data-icon]');
+    if(done && s!==current){
+      bullet.innerHTML='<svg viewBox="0 0 24 24" fill="currentColor"><path d="m9.5 16.2-3.7-3.7-1.4 1.4 5.1 5.1 10-10-1.4-1.4z"/></svg>';
+    } else {
+      bullet.innerHTML=ORIGINAL_BULLETS[s];
+    }
+  });
+}
+function goStep(i){
+  if(i<0||i>=STEP_COUNT) return;
+  current=i;
+  visited.add(i);
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('show',+p.dataset.panel===i));
+  renderStepper();
+  // reposition packet if we land on sim step (layout may have changed)
+  if(i===2) resetSimulation();
+  if(i===3 && aiIndex>=0) renderAi();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// preserve the original cute bullet icons so we can restore them
+const ORIGINAL_BULLETS=[];
+document.querySelectorAll('.step-tab [data-icon]').forEach(b=>ORIGINAL_BULLETS.push(b.innerHTML));
+
+// stepper tab click
+document.querySelectorAll('.step-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>goStep(+tab.dataset.step));
+});
+
+// keep packet aligned on resize
+window.addEventListener('resize',()=>{
+  if(current===2 && simIndex>=0) renderSim();
+  if(current===3 && aiIndex>=0) renderAi();
+});
+
+goStep(0);
+</script>
+</body>
+</html>
