@@ -76,7 +76,7 @@
   .step-tab.done .step-bullet{background:var(--mint);border-color:var(--mint);color:#fff;}
   .step-bullet svg{width:15px;height:15px;}
   .step-meta{min-width:0;}
-  .step-meta .num{font-family:'Montserrat';font-weight:800;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:#9a9a9a;}
+  .step-meta .num{font-family:'Montserrat';font-weight:800;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:#9a9a9a;}
   .step-tab.active .step-meta .num{color:var(--coral-dark);}
   .step-tab.done .step-meta .num{color:var(--mint);}
   .step-meta .name{font-family:'Montserrat';font-weight:800;font-size:.64rem;text-transform:uppercase;letter-spacing:.01em;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -229,6 +229,8 @@
   .info-panel .empty{color:#888;}
   .info-panel h4{font-weight:900;font-size:.92rem;text-transform:uppercase;letter-spacing:.02em;margin-bottom:2px;}
   .info-panel .badge{display:inline-block;font-family:'Montserrat';font-weight:800;font-size:.54rem;letter-spacing:.1em;text-transform:uppercase;background:var(--mint);color:#fff;padding:2px 7px;margin-bottom:6px;}
+  .info-panel .badge-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px;}
+  .info-panel .badge-row .badge{margin-bottom:0;}
   .info-panel p{margin:0;font-size:.82rem;line-height:1.45;}
 
   /* combined journey bar (caption + step controls in one row) */
@@ -347,8 +349,8 @@
   <!-- ════════════ STEP 1 ════════════ -->
   <section class="panel" data-panel="0">
     <div class="eyebrow">Step 1 · The Magic Trick 🪄</div>
-    <h2>Try booking a table at Sunny Side Kitchen!</h2>
-    <p class="lead">This is the exact website you helped design. Go ahead — fill it in and hit the button, then watch what happens. 👀</p>
+    <h2>I just used the Website Prompt Builder to build a website for <a href="https://skillcrush-curriculum.github.io/sunny-side-kitchen/" target="_blank" rel="noopener">Sunny Side Kitchen</a>, check it out by clicking on the link!</h2>
+    <p class="lead">Below is a simulation of what happens when you try to book a table. Try it out below, then watch what happens. 👀</p>
 
     <div class="hook-grid">
       <!-- mini site -->
@@ -385,7 +387,7 @@
       <div class="reveal-box">
         <div id="revealWait">
           <span class="stamp">👈</span>
-          <h3>Looks perfect, right?</h3>
+          <h3>Looks just like the website, right?</h3>
           <p>Fill out the form and click <span class="feature">Book My Table</span>. You'll get a happy confirmation message…</p>
           <p class="muted">…and then we'll ask one sneaky little question.</p>
         </div>
@@ -393,11 +395,11 @@
         <div class="detective" id="detective">
           <span class="search-anim">🔎</span>
           <h3 style="margin-top:10px;">But wait… where did that booking actually GO?</h3>
-          <p id="detLine1">Let's check the kitchen for Maya's reservation…</p>
+          <p id="detLine1">Let's check the back room for your reservation…</p>
           <div id="detResult" style="display:none;">
-            <p><strong>Nowhere. 👻</strong> The website happily threw confetti… but <span class="feature">nobody wrote the booking down.</span> No email was sent. The kitchen has <em>no idea</em> Maya is coming!</p>
+            <p><strong>Nowhere. 👻</strong> The website happily threw confetti… but <span class="feature">nobody wrote the booking down.</span> No email was sent. The restaurant has <em>no idea</em> you are coming!</p>
             <p>Why? Because a pretty page is only <strong>one layer</strong> of a real web app. The button looked like it worked — but there was nothing behind it to do the actual work.</p>
-            <p style="margin-bottom:0;">Let's meet <em>all</em> the layers that make a website truly come alive. 👉</p>
+            <p style="margin-bottom:0;">Let's meet <em>all</em> the layers that make a website truly come alive.</p>
           </div>
         </div>
       </div>
@@ -407,7 +409,7 @@
       <span class="i">i</span>
       <div class="tip-body">
         <strong>Pro Tip</strong>
-        <p>A confirmation message on screen doesn't always mean something really happened behind the scenes! Real apps have to <em>save</em> your info somewhere safe. Coming up: exactly how that works.</p>
+        <p>A confirmation message on screen doesn't always mean something really happened behind the scenes! Real apps incorporate <em>data flow</em> behind the scenes. Coming up: exactly how that works.</p>
       </div>
     </div>
   </section>
@@ -418,14 +420,14 @@
     <h2>A website works just like a busy restaurant 🍽️</h2>
     <p class="lead">Every part of Sunny Side Kitchen has one important job — and a website is built the exact same way! <span class="feature">Tap any box</span> below to meet that part of the restaurant and find out why it matters.</p>
 
-    <div class="stage-hint">👆 Tap a box to explore it</div>
+    <div class="stage-hint">👇🏼 Tap a box to explore it</div>
     <div id="diagramHost"></div>
 
     <div class="tip">
       <span class="i">i</span>
       <div class="tip-body">
         <strong>What You'll Learn Here</strong>
-        <p>In this bootcamp you'll master the two big languages this team speaks: <strong>JavaScript + React</strong> for the frontend (the part you see) and <strong>Python + Flask</strong> for the backend (the brains). Tap the boxes above to meet them both!</p>
+        <p>In this bootcamp you'll master the two big programming languages this team speaks: <strong>JavaScript + React</strong> for the frontend (the part you see) and <strong>Python + Flask</strong> for the backend (the brains). Tap the boxes above to meet them both!</p>
       </div>
     </div>
   </section>
@@ -461,8 +463,9 @@
   <!-- ════════════ BONUS ════════════ -->
   <section class="panel" data-panel="3">
     <div class="eyebrow">Bonus · Add Some AI ✨</div>
-    <h2>The restaurant calls in a guest chef 👨‍🍳</h2>
-    <p class="lead">Pick a day and a vibe — the <strong>AI guest chef</strong> plans your afternoon. Tap <span class="feature">Next</span> to follow the order to the chef!</p>
+    <h2>The restaurant calls in a personal concierge 🛎️</h2>
+    <p class="lead">The restaurant wants to step up the services it provides to esteemed guests like you!</p>
+    <p class="lead">Pick a day and a vibe — the <strong>AI concierge</strong> plans your afternoon after you eat. Tap <span class="feature">Next</span> to follow your request to the concierge!</p>
 
     <div class="planner">
       <div class="planner-card">
@@ -477,28 +480,28 @@
           <button class="vibe" data-vibe="relaxed"><span class="e">🌿</span>Relaxed</button>
           <button class="vibe" data-vibe="foodie"><span class="e">🍰</span>Foodie</button>
         </div>
-        <button class="btn" style="width:100%;" id="planBtn" onclick="planDay()">✨ Send It To The Kitchen!</button>
+        <button class="btn" style="width:100%;" id="planBtn" onclick="planDay()">✨ Send It To The Concierge!</button>
       </div>
 
       <div class="result-card">
         <div class="result-empty" id="aiEmpty">
-          <span style="font-size:2rem;">👨‍🍳</span>
-          <p style="max-width:26ch;">Pick a vibe, send it to the kitchen, then step through to meet the guest chef.</p>
+          <span style="font-size:2rem;">🛎️</span>
+          <p style="max-width:26ch;">Pick a vibe, send it to the concierge, then step through to meet them.</p>
         </div>
         <div class="thinking" id="aiThinking">
-          <span class="brain">👨‍🍳</span>
-          <p class="mont caps" style="font-size:.74rem;letter-spacing:.08em;">The guest chef is cooking<span class="dots"><span>.</span><span>.</span><span>.</span></span></p>
+          <span class="brain">🛎️</span>
+          <p class="mont caps" style="font-size:.74rem;letter-spacing:.08em;">The concierge is planning<span class="dots"><span>.</span><span>.</span><span>.</span></span></p>
         </div>
         <div class="ai-out" id="aiOut"></div>
       </div>
     </div>
 
-    <div class="stage-hint" style="margin-top:6px;">Here's where the guest chef plugs into the restaurant 👇</div>
+    <div class="stage-hint" style="margin-top:6px;">Here's where the concierge plugs into the restaurant 👇</div>
     <div id="diagramHost3"></div>
 
     <div class="journey-bar" id="aiCaption">
       <span class="step-no">AI</span>
-      <span class="cap" id="aiCaptionText">Pick a vibe and tap <strong>“Send It To The Kitchen!”</strong> to start the order's journey to the guest chef. ✨</span>
+      <span class="cap" id="aiCaptionText">Pick a vibe and tap <strong>“Send It To The Concierge!”</strong> to start your request's journey to the concierge. ✨</span>
       <span class="jctrls">
         <button class="jbtn ghost" id="aiBack" onclick="aiStep(-1)" disabled>‹ Back</button>
         <span class="sim-counter" id="aiCounter">Pick a vibe</span>
@@ -511,7 +514,7 @@
       <span class="i">i</span>
       <div class="tip-body">
         <strong>The Big Reveal 🚀</strong>
-        <p>The guest chef is a brand-new station plugged into the kitchen — the heart of our final <strong>Generative AI Web Apps</strong> course! 🚀</p>
+        <p>The concierge is a brand-new service plugged into the restaurant — the heart of our final <strong>Generative AI Web Apps</strong> course! 🚀</p>
       </div>
     </div>
   </section>
@@ -536,19 +539,19 @@ const NODES = {
   user:{name:'You',tag:'A hungry guest!',badge:null,
     body:"That's you — a hungry guest who just walked in wanting something, like booking a table at Sunny Side Kitchen. 🙋 Every single part of the restaurant exists to take care of this one person: YOU!"},
   browser:{name:'The Dining Room',tag:'Chrome, Safari…',badge:null,
-    body:"The browser is the dining room you step into — Chrome, Safari, or Edge. 🍽️ It's the space where the whole experience is set out in front of you: the lighting, the tables, the menus. It doesn't cook anything itself — it just lays everything out nicely so you can see it and settle in."},
-  frontend:{name:'The Menu & Décor',tag:'Built with React',badge:'React',
-    body:"The frontend is everything you see and touch once you're seated — the menu, the décor, the little card you fill in to book a table. 🎨 It's the part designed to look lovely and be easy to use. You'll build this with React, a tool that lets you create it from small reusable pieces — like a place setting you can lay out at every table. 🍴 The pretty Sunny Side page you made? That's all menu and décor!"},
-  api:{name:'The Waiter',tag:'Takes your order',badge:null,
-    body:"The waiter is the messenger. 🤵 You don't march into the kitchen yourself — you hand your order to the waiter, who carries it back to the chefs and returns with your food. The API does exactly this: it carries requests from the menu (frontend) to the kitchen (backend) and brings the answer back. It's the polite set of rules for how the front of house and the kitchen talk."},
-  backend:{name:'The Kitchen',tag:'Python + Flask',badge:'Python · Flask',
-    body:"The kitchen is where the real cooking and the big decisions happen, out of sight behind the doors. 🍳 “Is this table free tonight? Yes — fire the order!” This is the brain of the restaurant. You'll build kitchens like this with Python using a tool called Flask. It's the exact piece your website was missing — a gorgeous menu with no kitchen behind it!"},
-  database:{name:'The Pantry',tag:'Stores everything',badge:null,
-    body:"The pantry is the restaurant's memory — the shelves, the walk-in fridge, and the big reservation logbook 📒 where everything important is written down and kept. Bookings, guest details, orders — all stored here so they're still there tomorrow. Without a pantry, the kitchen would forget every order the second it was made!"},
-  auth:{name:'The Host',tag:'Checks the list',badge:null,
-    body:"The host at the front door checks who you are before you're seated — “Do you have a reservation? Name, please!” 🛎️ That's exactly what logging in with a username and password does. The host makes sure you only get shown to YOUR table and YOUR booking, never someone else's. Keeping every guest safe and sorted! (You'll explore this more next lesson.)"},
-  ai:{name:'The Guest Chef',tag:'Generative AI (LLM)',badge:'LLM',
-    body:"This is the magic ✨ — a brilliant guest chef the kitchen can phone up at any moment, like the AI brain behind tools such as Claude. 👨‍🍳 Ask it to invent something on the spot — say, a custom fun day out for a diner — and it whips up a fresh, creative answer instantly. It's a whole new station that plugs into your kitchen, and learning to wire one in is what our final course, Generative AI Web Apps, is all about!"}
+    body:"The browser is the dining room you step into — Chrome, Safari, or Firefox. 🍽️ It's the space where the whole experience is set out in front of you: the lighting, the tables, the menus. The website for Sunny Side Kitchen is the virtual representation of the dining room that you can see in the browser!"},
+  frontend:{name:'The Menu & Décor',tag:'HTML, CSS, JS, React.js',badges:['Semantic HTML','Responsive CSS','JavaScript','React'],
+    body:"The frontend is everything you see and touch once you're seated — the menu, the décor, the organization of the tables. 🎨 It's the part designed to look lovely and be easy to use. All the languages used to build this display in your browser come together inside the framework React, a tool that lets you create the representation of the restaurant on the website from small reusable and organized pieces — like a place setting you can lay out at every table. 🍴 The pretty Sunny Side page I made? That's all mood and décor!"},
+  api:{name:'The Waiter',tag:'API',badge:'API',
+    body:"Now this is where it gets interesting. So you made a virtual request for a table on the Sunny Side website — in a fully functioning website, it's like you passed along your request to a tiny virtual waiter.<br><br>The waiter is the messenger. 🤵 You don't walk into the back room yourself — you hand your reservation request to the waiter, who carries it to the back and returns with an answer. The API does exactly this: it carries your request from the form (frontend) to the back room (backend) and brings the response back. The waiter follows a polite set of rules for how the front of house and the back room talk."},
+  backend:{name:'The Back Room',tag:'Python + Flask',badges:['Python','Flask'],
+    body:"The back room is where the real decisions happen, out of sight. 🗂️ &ldquo;Is there a table free that night? Yes — let's lock it in!&rdquo; This is the brain of the restaurant. It receives your request, checks the logbook, applies the rules, and assembles an answer — all without you ever seeing how. That's exactly what Python does: it processes requests, runs the logic, and talks to the logbook. Flask is the back room's organization system — making sure the right request reaches the right place and the right answer comes back out. It's the key piece your website was missing!"},
+  database:{name:'The Logbook',tag:'Stores everything',badge:null,
+    body:"The logbook is the restaurant's memory — the big reservation book 📒 where everything important is written down and kept. Bookings, guest details, dates — all stored here so they're still there tomorrow. Without it, the back room would forget every reservation the second it was made!"},
+  auth:{name:'The Host',tag:'Checks the request',badge:null,
+    body:"Before any reservation gets made, the request stops at the host. 🛎️ The host looks over the details coming in — &ldquo;Is this card filled out properly? A real date, a sensible party size, a valid email? Are we even open that night?&rdquo; — and only waves it through once everything checks out. On a website, this is the gatekeeping step that verifies a request is complete and allowed <em>before</em> the back room acts on it. Keeping every guest safe and sorted!"},
+  ai:{name:'The Concierge',tag:'Generative AI (LLM)',badge:'LLM',
+    body:"This is the magic ✨ — a brilliant concierge the restaurant can call on at any moment, like the AI brain behind tools such as Claude. 🛎️ Ask it to plan something on the spot — say, a custom day out for an esteemed guest — and it dreams up a fresh, personalized itinerary instantly. It's a whole new service that plugs into your restaurant, and learning to wire one in is what our final course, Generative AI Web Apps, is all about!"}
 };
 
 /* ─────────────── BUILD DIAGRAM ─────────────── */
@@ -562,13 +565,13 @@ function diagramHTML(){
   row += '</div>';
 
   const branch = `
-    <div class="branch">
-      <div class="branch-col">
+    <div class="branch" data-branch>
+      <div class="branch-col" data-anchor="api">
         <div class="connector"></div>
         ${nodeHTML('auth')}
         <div class="ai-label" style="height:0;"></div>
       </div>
-      <div class="branch-col">
+      <div class="branch-col" data-anchor="backend">
         <div class="connector"></div>
         ${nodeHTML('ai')}
       </div>
@@ -600,6 +603,39 @@ function mountDiagram(hostId, withInfo){
   host.querySelectorAll('.node').forEach(node=>{
     node.addEventListener('click',()=>selectNode(host,node.dataset.node));
   });
+  positionBranches(host);
+}
+// Align each branch column (and its connector) directly beneath its anchor node
+// in the top row, so the Host drops from the API and the Concierge from the Back Room.
+function positionBranches(host){
+  const diagram=host.querySelector('.diagram');
+  const branch=host.querySelector('[data-branch]');
+  if(!diagram||!branch) return;
+  const cols=branch.querySelectorAll('.branch-col');
+  const stacked=window.matchMedia('(max-width:560px)').matches;
+  if(stacked){
+    // narrow layout: let the original centered flow handle it
+    branch.style.position='';
+    branch.style.height='';
+    cols.forEach(c=>{c.style.position='';c.style.left='';c.style.transform='';});
+    return;
+  }
+  branch.style.position='relative';
+  let maxH=0;
+  cols.forEach(col=>{
+    const key=col.dataset.anchor;
+    const anchor=host.querySelector(`.node[data-node="${key}"]`);
+    if(!anchor) return;
+    const dRect=diagram.getBoundingClientRect();
+    const aRect=anchor.getBoundingClientRect();
+    const centerX=aRect.left-dRect.left+aRect.width/2;
+    col.style.position='absolute';
+    col.style.left=centerX+'px';
+    col.style.top='0';
+    col.style.transform='translateX(-50%)';
+    maxH=Math.max(maxH,col.offsetHeight);
+  });
+  branch.style.height=maxH+'px';
 }
 function selectNode(host,key){
   host.querySelectorAll('.node').forEach(n=>n.classList.toggle('selected',n.dataset.node===key));
@@ -611,7 +647,13 @@ function selectNode(host,key){
   host.querySelector('[data-info-title]').textContent=n.name.toUpperCase();
   const bodyEl=host.querySelector('[data-info-body]');
   bodyEl.classList.remove('empty');
-  bodyEl.innerHTML=(n.badge?`<span class="badge">${n.badge}</span><br>`:'')+n.body;
+  let badgeHTML='';
+  if(n.badges&&n.badges.length){
+    badgeHTML='<span class="badge-row">'+n.badges.map(b=>`<span class="badge">${b}</span>`).join('')+'</span>';
+  } else if(n.badge){
+    badgeHTML=`<span class="badge">${n.badge}</span><br>`;
+  }
+  bodyEl.innerHTML=badgeHTML+n.body;
 }
 
 mountDiagram('diagramHost', true);
@@ -619,6 +661,7 @@ mountDiagram('diagramHost2', false);
 mountDiagram('diagramHost3', false);
 // turn the bonus diagram's AI layer on
 document.querySelector('#diagramHost3 .diagram').classList.add('ai-on','mini');
+positionBranches(document.getElementById('diagramHost3'));
 
 /* ─────────────── STEP 1: form hook ─────────────── */
 function pickService(btn){
@@ -634,7 +677,7 @@ function bookTable(){
     const det=document.getElementById('detective');
     det.classList.add('show');
     setTimeout(()=>{
-      document.getElementById('detLine1').innerHTML='Searching the kitchen… checking the database… looking for an email…';
+      document.getElementById('detLine1').innerHTML='Searching the back room… checking the logbook… looking for an email…';
     },900);
     setTimeout(()=>{
       document.getElementById('detResult').style.display='block';
@@ -646,15 +689,15 @@ function bookTable(){
 
 /* ─────────────── STEP 3: simulation ─────────────── */
 const SIM=[
-  {node:'user',no:'1',text:"🙋 <strong>You</strong>, the hungry guest, decide to book a table and fill in the little reservation card."},
-  {node:'frontend',no:'2',text:"🎨 The <strong>menu &amp; décor (frontend / React)</strong> neatly bundles up your name, date and party size into one tidy order."},
-  {node:'api',no:'3',text:"🤵 The <strong>waiter (API)</strong> picks up your order and hurries it toward the back of the restaurant."},
-  {node:'auth',no:'4',text:"🛎️ First stop — the <strong>host (authentication)</strong> checks: “Is this a real guest who's allowed to book?” ✅ All good — come on in!"},
-  {node:'backend',no:'5',text:"🍳 The <strong>kitchen (Python + Flask)</strong> reads the order and decides: “Table's free tonight — let's make it happen!”"},
-  {node:'database',no:'6',text:"📒 The booking is written into the <strong>pantry's reservation logbook (database)</strong> — saved for good!"},
-  {node:'backend',no:'7',text:"✅ The <strong>kitchen</strong> plates up a “Success!” and sends it back out the doors."},
+  {node:'user',no:'1',text:"🙋 <strong>You</strong>, the guest, decide to book a table and fill in the little reservation card."},
+  {node:'frontend',no:'2',text:"🎨 The <strong>reservation form (frontend / React)</strong> neatly bundles up your name, date and party size into one tidy request."},
+  {node:'api',no:'3',text:"🤵 The <strong>waiter (API)</strong> picks up your request and hurries it toward the back of the restaurant."},
+  {node:'auth',no:'4',text:"🛎️ First stop — the <strong>host</strong> looks over your request: “Card filled out right? Date works? Approved!” ✅ Now it can head to the back room."},
+  {node:'backend',no:'5',text:"🗂️ The <strong>back room (Python + Flask)</strong> checks the information against the logbook and decides: “Table's free that night — let's lock it in!”"},
+  {node:'database',no:'6',text:"📒 The booking is written into the <strong>reservation logbook (database)</strong> — saved for good!"},
+  {node:'backend',no:'7',text:"✅ The <strong>back room</strong> sends back a “Confirmed!” — only now that the space is truly secured."},
   {node:'api',no:'8',text:"🤵 The <strong>waiter (API)</strong> carries the good news back across the restaurant."},
-  {node:'frontend',no:'9',text:"🎨 The <strong>menu &amp; décor (frontend)</strong> updates itself with a happy confirmation."},
+  {node:'frontend',no:'9',text:"🎨 The <strong>reservation form (frontend)</strong> updates itself with a happy confirmation."},
   {node:'browser',no:'10',text:"🍽️ The <strong>dining room (browser)</strong> paints that confirmation up on your screen."},
   {node:'user',no:'11',text:"🎉 And <strong>you</strong>, the guest, see “Table booked!” — for REAL this time. THAT'S the full round trip your website was missing!"}
 ];
@@ -754,25 +797,25 @@ const PLANS={
 };
 
 const AI_SIM=[
-  {node:'frontend',no:'1',text:"🎨 You tell the <strong>menu (frontend / React)</strong> your day and your vibe — your special request gets bundled up."},
-  {node:'api',no:'2',text:"🤵 The <strong>waiter (API)</strong> carries your request back toward the kitchen."},
-  {node:'backend',no:'3',text:"🍳 The <strong>kitchen (Python + Flask)</strong> sees this needs real creativity — time to call in a specialist!"},
-  {node:'ai',no:'4',text:"✨ The <strong>guest chef (AI / LLM)</strong> dreams up a one-of-a-kind plan, made just for your vibe…"},
-  {node:'backend',no:'5',text:"🍽️ The <strong>kitchen</strong> takes the guest chef's idea and plates it up beautifully."},
-  {node:'frontend',no:'6',text:"🎉 Back through the waiter, into the dining room, and onto your screen — here's your custom plan. Bon appétit, then go have fun!"}
+  {node:'frontend',no:'1',text:"🎨 You tell the <strong>reservation form (frontend / React)</strong> your day and your vibe — your special request gets bundled up."},
+  {node:'api',no:'2',text:"🤵 The <strong>waiter (API)</strong> carries your request back toward the back room."},
+  {node:'backend',no:'3',text:"🗂️ The <strong>back room (Python + Flask)</strong> sees this needs real creativity — time to call the concierge!"},
+  {node:'ai',no:'4',text:"✨ The <strong>concierge (AI / LLM)</strong> dreams up a one-of-a-kind plan, made just for your vibe…"},
+  {node:'backend',no:'5',text:"🗂️ The <strong>back room</strong> takes the concierge's idea and packages it up beautifully."},
+  {node:'frontend',no:'6',text:"🎉 Back through the waiter, onto your screen — here's your custom plan. Enjoy, then go have fun!"}
 ];
 let aiIndex=-1;
 let aiResultHTML='';
 
-function planDay(){ // "Send It To The Kitchen!" — starts the journey
+function planDay(){ // "Send It To The Concierge!" — starts the journey
   if(!chosenVibe){ alert("Pick a vibe first! 🌈"); return; }
   const day=document.getElementById('ai_day').value;
   const opts=PLANS[chosenVibe];
   const pick=opts[Math.floor(Math.random()*opts.length)];
   const li=pick.items.map(it=>`<li><span class="t">${it[0]}</span><span>${it[1]}</span></li>`).join('');
-  aiResultHTML=`<span class="tag">👨‍🍳 Cooked up by the guest chef (AI)</span>
+  aiResultHTML=`<span class="tag">🛎️ Planned by the concierge (AI)</span>
     <h5>${pick.title}</h5>
-    <p style="margin:0 0 12px;font-size:.92rem;color:#555;">After your meal at Sunny Side Kitchen this <strong>${day}</strong>, here's a <strong>${chosenVibe}</strong> plan made just for you:</p>
+    <p style="margin:0 0 12px;font-size:.92rem;color:#555;">After your meal at Sunny Side Kitchen this <strong>${day}</strong>, here's a <strong>${chosenVibe}</strong> plan from the concierge, made just for you:</p>
     <ul>${li}</ul>`;
   document.getElementById('planBtn').disabled=true;
   aiIndex=0;
@@ -805,7 +848,7 @@ function renderAi(){
     replay.style.display='none';
     next.style.display='';
     document.querySelector('#aiCaption .step-no').textContent='AI';
-    document.getElementById('aiCaptionText').innerHTML='Pick a vibe and tap <strong>“Send It To The Kitchen!”</strong> to start the order on its journey to the guest chef. ✨';
+    document.getElementById('aiCaptionText').innerHTML='Pick a vibe and tap <strong>“Send It To The Concierge!”</strong> to start the order on its journey to the concierge. ✨';
     counter.textContent=chosenVibe?'Ready!':'Pick a vibe';
     return;
   }
@@ -867,6 +910,10 @@ function goStep(i){
   visited.add(i);
   document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('show',+p.dataset.panel===i));
   renderStepper();
+  // now-visible diagrams can finally be measured — align their branches
+  if(i===1) positionBranches(document.getElementById('diagramHost'));
+  if(i===2) positionBranches(document.getElementById('diagramHost2'));
+  if(i===3) positionBranches(document.getElementById('diagramHost3'));
   // reposition packet if we land on sim step (layout may have changed)
   if(i===2) resetSimulation();
   if(i===3 && aiIndex>=0) renderAi();
@@ -884,6 +931,9 @@ document.querySelectorAll('.step-tab').forEach(tab=>{
 
 // keep packet aligned on resize
 window.addEventListener('resize',()=>{
+  ['diagramHost','diagramHost2','diagramHost3'].forEach(id=>{
+    const h=document.getElementById(id); if(h) positionBranches(h);
+  });
   if(current===2 && simIndex>=0) renderSim();
   if(current===3 && aiIndex>=0) renderAi();
 });
