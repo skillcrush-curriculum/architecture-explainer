@@ -45,21 +45,6 @@
     border-left:1px solid var(--line);border-right:1px solid var(--line);
   }
 
-  /* hero / top bar */
-  .hero{
-    background:var(--hero);padding:11px 22px;border-bottom:1px solid var(--line);
-    display:flex;align-items:center;gap:14px;flex:none;
-  }
-  .hero-top{display:flex;align-items:center;flex:none;}
-  .logo{height:34px;width:auto;display:block;}
-  .logo-fallback{font-family:'Montserrat';font-weight:900;font-size:.9rem;letter-spacing:.02em;color:var(--ink);display:none;line-height:1;}
-  .logo-fallback span{color:var(--coral-dark);font-weight:700;}
-  .hero-title{border-left:2px solid #cdeaea;padding-left:14px;}
-  .hero h1{font-weight:900;font-size:1.1rem;line-height:1.1;}
-  .hero h1 em{font-style:italic;}
-  .hero .sub{display:none;}
-  .lesson-kicker{display:none;}
-
   /* stepper */
   .stepper-wrap{flex:none;}
   .stepper{display:flex;border-bottom:1px solid var(--line);background:#fff;}
@@ -105,8 +90,20 @@
   .btn.ghost:hover{background:#f4f4f4;}
   .btn:disabled{opacity:.45;cursor:not-allowed;}
 
+  /* per-step footer navigation (Prev / Next lesson step) */
+  .step-nav{display:flex;align-items:center;gap:10px;padding-top:12px;margin-top:12px;border-top:1px solid var(--line);flex:none;}
+  .step-nav .nav-btn{
+    font-family:'Montserrat';font-weight:800;text-transform:uppercase;letter-spacing:.04em;
+    font-size:.7rem;padding:10px 16px;border:none;cursor:pointer;
+    background:var(--coral);color:#fff;transition:background .18s;
+  }
+  .step-nav .nav-btn:hover{background:var(--coral-dark);}
+  .step-nav .nav-btn.prev{background:#fff;color:var(--ink);border:2px solid var(--ink);}
+  .step-nav .nav-btn.prev:hover{background:#f4f4f4;}
+  .step-nav .nav-btn.next{margin-left:auto;}
+
   /* ─────────── STEP 1: the form hook ─────────── */
-  .hook-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start;flex:1;min-height:0;}
+  .hook-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start;}
   @media(max-width:560px){.hook-grid{grid-template-columns:1fr;}}
 
   /* Sunny Side Kitchen form — matches the live site styling */
@@ -160,10 +157,8 @@
   .reveal-box h3{font-weight:900;font-size:1.05rem;margin-bottom:7px;line-height:1.15;}
   .reveal-box p{font-size:.82rem;margin-bottom:8px;}
   .reveal-box .muted{opacity:.55;}
-  .detective{display:none;}
-  .detective.show{display:block;animation:fade .4s ease both;}
-  .search-anim{font-size:1.7rem;display:inline-block;animation:hunt 1.1s ease-in-out infinite;}
-  @keyframes hunt{0%,100%{transform:translateX(0) rotate(-8deg);}50%{transform:translateX(14px) rotate(8deg);}}
+  .reveal-result{display:none;}
+  .reveal-result.show{display:block;}
 
   /* ─────────── DIAGRAM ─────────── */
   .stage-hint{font-family:'Montserrat';font-weight:700;font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;color:#777;margin-bottom:8px;}
@@ -196,6 +191,8 @@
   .branch{display:flex;justify-content:center;gap:44px;margin-top:6px;flex-wrap:wrap;}
   .branch-col{display:flex;flex-direction:column;align-items:center;}
   .branch .connector{width:2px;height:14px;background:#bdbdbd;}
+  .branch .ai-connector{display:none;}
+  .diagram.ai-on .branch .ai-connector{display:block;}
   .node.ai{display:none;}
   .diagram.ai-on .node.ai{display:block;animation:pop .5s ease both;}
   .ai-label{display:none;}
@@ -221,7 +218,7 @@
 
   /* info panel */
   .info-panel{
-    margin-top:12px;border:2px solid var(--ink);background:#fff;flex:1;min-height:0;
+    margin-top:12px;border:2px solid var(--ink);background:#fff;
     padding:13px 16px;display:flex;gap:14px;align-items:flex-start;
   }
   .info-panel .pic{flex:none;width:44px;height:44px;border:2px solid var(--ink);display:grid;place-items:center;color:var(--ink);background:var(--active);}
@@ -286,7 +283,7 @@
   /* ─────────── TIPS BOX (compact, pinned to bottom of the panel) ─────────── */
   .tip{
     display:flex;gap:11px;align-items:center;background:var(--tip-bg);
-    border:2px solid #bfe3f3;padding:7px 13px;margin-top:auto;
+    border:2px solid #bfe3f3;padding:7px 13px;margin-top:12px;
   }
   .tip .i{
     flex:none;width:26px;height:26px;border-radius:50%;background:#fff;border:2px solid #79c4e6;
@@ -301,18 +298,6 @@
 <body>
 
 <div class="app">
-
-<!-- HERO -->
-<header class="hero">
-  <div class="hero-top">
-    <img class="logo" src="https://raw.githubusercontent.com/skillcrush-curriculum/skillcrush-by-ptf-logo/main/skillcrush-by-ptf-2x.png" alt="Skillcrush by PowerToFly logo"
-         onerror="this.style.display='none';document.getElementById('logoFb').style.display='block';">
-    <div class="logo-fallback" id="logoFb">SKILLCRUSH<span> by </span>PTF</div>
-  </div>
-  <div class="hero-title">
-    <h1>How a Website <em>Really</em> Works</h1>
-  </div>
-</header>
 
 <!-- STEPPER -->
 <div class="stepper-wrap">
@@ -349,7 +334,7 @@
   <!-- ════════════ STEP 1 ════════════ -->
   <section class="panel" data-panel="0">
     <div class="eyebrow">Step 1 · The Magic Trick 🪄</div>
-    <h2>I just used the Website Prompt Builder to build a website for <a href="https://skillcrush-curriculum.github.io/sunny-side-kitchen/" target="_blank" rel="noopener">Sunny Side Kitchen</a>, check it out by clicking on the link!</h2>
+    <p class="lead">I just used the Website Prompt Builder to build a website for <a href="https://skillcrush-curriculum.github.io/sunny-side-kitchen/" target="_blank" rel="noopener">Sunny Side Kitchen</a>, check it out by clicking on the link!</p>
     <p class="lead">Below is a simulation of what happens when you try to book a table. Try it out below, then watch what happens. 👀</p>
 
     <div class="hook-grid">
@@ -392,15 +377,12 @@
           <p class="muted">…and then we'll ask one sneaky little question.</p>
         </div>
 
-        <div class="detective" id="detective">
-          <span class="search-anim">🔎</span>
-          <h3 style="margin-top:10px;">But wait… where did that booking actually GO?</h3>
-          <p id="detLine1">Let's check the back room for your reservation…</p>
-          <div id="detResult" style="display:none;">
-            <p><strong>Nowhere. 👻</strong> The website happily threw confetti… but <span class="feature">nobody wrote the booking down.</span> No email was sent. The restaurant has <em>no idea</em> you are coming!</p>
-            <p>Why? Because a pretty page is only <strong>one layer</strong> of a real web app. The button looked like it worked — but there was nothing behind it to do the actual work.</p>
-            <p style="margin-bottom:0;">Let's meet <em>all</em> the layers that make a website truly come alive.</p>
-          </div>
+        <div class="reveal-result" id="revealResult">
+          <span class="stamp">👻</span>
+          <h3>But wait… where did that booking actually GO?</h3>
+          <p><strong>Nowhere.</strong> The website happily threw confetti… but <span class="feature">nobody wrote the booking down.</span> No email was sent. The restaurant has <em>no idea</em> you are coming!</p>
+          <p>Why? Because a pretty page is only <strong>one layer</strong> of a real web app. The button looked like it worked — but there was nothing behind it to do the actual work.</p>
+          <p style="margin-bottom:0;">Let's meet <em>all</em> the layers that make a website truly come alive.</p>
         </div>
       </div>
     </div>
@@ -411,6 +393,10 @@
         <strong>Pro Tip</strong>
         <p>A confirmation message on screen doesn't always mean something really happened behind the scenes! Real apps incorporate <em>data flow</em> behind the scenes. Coming up: exactly how that works.</p>
       </div>
+    </div>
+
+    <div class="step-nav">
+      <button class="nav-btn next" onclick="nextStep()">Next Tab ›</button>
     </div>
   </section>
 
@@ -429,6 +415,11 @@
         <strong>What You'll Learn Here</strong>
         <p>In this bootcamp you'll master the two big programming languages this team speaks: <strong>JavaScript + React</strong> for the frontend (the part you see) and <strong>Python + Flask</strong> for the backend (the brains). Tap the boxes above to meet them both!</p>
       </div>
+    </div>
+
+    <div class="step-nav">
+      <button class="nav-btn prev" onclick="prevStep()">‹ Previous Tab</button>
+      <button class="nav-btn next" onclick="nextStep()">Next Tab ›</button>
     </div>
   </section>
 
@@ -458,14 +449,18 @@
         <p>Every arrow is a real conversation between layers. When something breaks, developers follow this <em>exact</em> path to hunt down the problem — like detectives! 🕵️</p>
       </div>
     </div>
+
+    <div class="step-nav">
+      <button class="nav-btn prev" onclick="prevStep()">‹ Previous Tab</button>
+      <button class="nav-btn next" onclick="nextStep()">Next Tab ›</button>
+    </div>
   </section>
 
   <!-- ════════════ BONUS ════════════ -->
   <section class="panel" data-panel="3">
     <div class="eyebrow">Bonus · Add Some AI ✨</div>
     <h2>The restaurant calls in a personal concierge 🛎️</h2>
-    <p class="lead">The restaurant wants to step up the services it provides to esteemed guests like you!</p>
-    <p class="lead">Pick a day and a vibe — the <strong>AI concierge</strong> plans your afternoon after you eat. Tap <span class="feature">Next</span> to follow your request to the concierge!</p>
+    <p class="lead">Pick a day and a vibe — the <strong>AI concierge</strong> plans your afternoon. Tap <span class="feature">Next</span> to follow your request to the concierge!</p>
 
     <div class="planner">
       <div class="planner-card">
@@ -510,12 +505,8 @@
       </span>
     </div>
 
-    <div class="tip">
-      <span class="i">i</span>
-      <div class="tip-body">
-        <strong>The Big Reveal 🚀</strong>
-        <p>The concierge is a brand-new service plugged into the restaurant — the heart of our final <strong>Generative AI Web Apps</strong> course! 🚀</p>
-      </div>
+    <div class="step-nav">
+      <button class="nav-btn prev" onclick="prevStep()">‹ Previous Tab</button>
     </div>
   </section>
 
@@ -541,7 +532,7 @@ const NODES = {
   browser:{name:'The Dining Room',tag:'Chrome, Safari…',badge:null,
     body:"The browser is the dining room you step into — Chrome, Safari, or Firefox. 🍽️ It's the space where the whole experience is set out in front of you: the lighting, the tables, the menus. The website for Sunny Side Kitchen is the virtual representation of the dining room that you can see in the browser!"},
   frontend:{name:'The Menu & Décor',tag:'HTML, CSS, JS, React.js',badges:['Semantic HTML','Responsive CSS','JavaScript','React'],
-    body:"The frontend is everything you see and touch once you're seated — the menu, the décor, the organization of the tables. 🎨 It's the part designed to look lovely and be easy to use. All the languages used to build this display in your browser come together inside the framework React, a tool that lets you create the representation of the restaurant on the website from small reusable and organized pieces — like a place setting you can lay out at every table. 🍴 The pretty Sunny Side page I made? That's all mood and décor!"},
+    body:"The frontend is everything you see and touch once you're seated — the menu, the décor, the organization of the tables. 🎨 It's the part designed to look lovely and be easy to use. All the languages used to build this display in your browser come together inside the framework React, a tool that lets you create the representation of restaurant on the website from small reusable and organized pieces — like a place setting you can lay out at every table. 🍴 The pretty Sunny Side page I made? That's all mood and décor!"},
   api:{name:'The Waiter',tag:'API',badge:'API',
     body:"Now this is where it gets interesting. So you made a virtual request for a table on the Sunny Side website — in a fully functioning website, it's like you passed along your request to a tiny virtual waiter.<br><br>The waiter is the messenger. 🤵 You don't walk into the back room yourself — you hand your reservation request to the waiter, who carries it to the back and returns with an answer. The API does exactly this: it carries your request from the form (frontend) to the back room (backend) and brings the response back. The waiter follows a polite set of rules for how the front of house and the back room talk."},
   backend:{name:'The Back Room',tag:'Python + Flask',badges:['Python','Flask'],
@@ -572,7 +563,7 @@ function diagramHTML(){
         <div class="ai-label" style="height:0;"></div>
       </div>
       <div class="branch-col" data-anchor="backend">
-        <div class="connector"></div>
+        <div class="connector ai-connector"></div>
         ${nodeHTML('ai')}
       </div>
     </div>`;
@@ -671,20 +662,9 @@ function pickService(btn){
 function bookTable(){
   document.getElementById('formWrap').style.display='none';
   document.getElementById('confetti').classList.add('show');
-  // after a beat, run the detective reveal in the right column
-  setTimeout(()=>{
-    document.getElementById('revealWait').style.display='none';
-    const det=document.getElementById('detective');
-    det.classList.add('show');
-    setTimeout(()=>{
-      document.getElementById('detLine1').innerHTML='Searching the back room… checking the logbook… looking for an email…';
-    },900);
-    setTimeout(()=>{
-      document.getElementById('detResult').style.display='block';
-      document.querySelector('#detective .search-anim').style.animation='none';
-      document.querySelector('#detective .search-anim').textContent='👻';
-    },2200);
-  },650);
+  // jump straight to the reveal — no searching animation or delay
+  document.getElementById('revealWait').style.display='none';
+  document.getElementById('revealResult').classList.add('show');
 }
 
 /* ─────────────── STEP 3: simulation ─────────────── */
@@ -802,7 +782,7 @@ const AI_SIM=[
   {node:'backend',no:'3',text:"🗂️ The <strong>back room (Python + Flask)</strong> sees this needs real creativity — time to call the concierge!"},
   {node:'ai',no:'4',text:"✨ The <strong>concierge (AI / LLM)</strong> dreams up a one-of-a-kind plan, made just for your vibe…"},
   {node:'backend',no:'5',text:"🗂️ The <strong>back room</strong> takes the concierge's idea and packages it up beautifully."},
-  {node:'frontend',no:'6',text:"🎉 Back through the waiter, onto your screen — here's your custom plan. Enjoy, then go have fun!"}
+  {node:'frontend',no:'6',text:"🎉 Back through the waiter, onto your screen — here's your custom plan. Enjoy, then go have fun!<br><br><em>Note: This was just a simulation! A real LLM is magic because it can do things consider the weather for the date and consider patterns for what people like to do on rainy days vs sunny — you'll build an app like this in our Generative AI Web Apps course!</em>"}
 ];
 let aiIndex=-1;
 let aiResultHTML='';
@@ -919,6 +899,9 @@ function goStep(i){
   if(i===3 && aiIndex>=0) renderAi();
   window.scrollTo({top:0,behavior:'smooth'});
 }
+// footer navigation helpers — flow between steps without scrolling to the top tabs
+function nextStep(){ goStep(current+1); }
+function prevStep(){ goStep(current-1); }
 
 // preserve the original cute bullet icons so we can restore them
 const ORIGINAL_BULLETS=[];
