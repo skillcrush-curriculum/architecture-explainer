@@ -265,8 +265,7 @@
   .result-empty{color:#888;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;font-size:.82rem;}
   .thinking{display:none;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;}
   .thinking.show{display:flex;}
-  .brain{font-size:2.2rem;animation:think 1s ease-in-out infinite;}
-  @keyframes think{0%,100%{transform:scale(1);}50%{transform:scale(1.18) rotate(6deg);}}
+  .brain{font-size:2.2rem;}
   .dots span{animation:blink 1.2s infinite;font-weight:900;}
   .dots span:nth-child(2){animation-delay:.2s;}
   .dots span:nth-child(3){animation-delay:.4s;}
@@ -483,7 +482,7 @@
           <p style="max-width:26ch;">Pick a vibe, send it to the concierge, then step through to meet them.</p>
         </div>
         <div class="thinking" id="aiThinking">
-          <span class="brain">🛎️</span>
+          <span style="font-size:2.2rem;">🛎️</span>
           <p class="mont caps" style="font-size:.74rem;letter-spacing:.08em;">The concierge is planning<span class="dots"><span>.</span><span>.</span><span>.</span></span></p>
         </div>
         <div class="ai-out" id="aiOut"></div>
@@ -669,16 +668,17 @@ function bookTable(){
 /* ─────────────── STEP 3: simulation ─────────────── */
 const SIM=[
   {node:'user',no:'1',text:"🙋 <strong>You</strong>, the guest, decide you would like to check out the farm fresh food at Sunny Side Kitchen! It's always busy, so you think it's smart to reserve a table."},
-  {node:'frontend',no:'2',text:"🎨 The <strong>reservation form (frontend / React)</strong> neatly bundles up your name, date and party size into one tidy request."},
-  {node:'api',no:'3',text:"🤵 The <strong>waiter (API)</strong> picks up your request and hurries it toward the back of the restaurant."},
-  {node:'auth',no:'4',text:"🛎️ First stop — the <strong>host</strong> looks over your request: “Card filled out right? Date works? Approved!” ✅ Now it can head to the back room."},
-  {node:'backend',no:'5',text:"🗂️ The <strong>back room (Python + Flask)</strong> checks the information against the logbook and decides: “Table's free that night — let's lock it in!”"},
-  {node:'database',no:'6',text:"📒 The booking is written into the <strong>reservation logbook (database)</strong> — saved for good!"},
-  {node:'backend',no:'7',text:"✅ The <strong>back room</strong> sends back a “Confirmed!” — only now that the space is truly secured."},
-  {node:'api',no:'8',text:"🤵 The <strong>waiter (API)</strong> carries the good news back across the restaurant."},
-  {node:'frontend',no:'9',text:"🎨 The <strong>reservation form (frontend)</strong> updates itself to the version of the display that shows the happy confirmation."},
-  {node:'browser',no:'10',text:"🍽️ The <strong>dining room (browser)</strong> paints that confirmation up on your screen."},
-  {node:'user',no:'11',text:"🎉 And <strong>you</strong>, the guest, see “Table booked!” — for REAL this time. THAT'S the full round trip your website was missing!"}
+  {node:'browser',no:'2',text:"🍽️ You checkout the virtual representation for the restaurant (the website!) on your <strong>browser</strong> and fill out the reservation form."},
+  {node:'frontend',no:'3',text:"🎨 The <strong>reservation form (frontend / React)</strong> neatly bundles up your name, date and party size into one tidy request."},
+  {node:'api',no:'4',text:"🤵 The <strong>waiter (API)</strong> picks up your request and hurries it toward the back of the restaurant."},
+  {node:'auth',no:'5',text:"🛎️ First stop — the <strong>host</strong> looks over your request: “Card filled out right? Date works? Approved!” ✅ Now it can head to the back room."},
+  {node:'backend',no:'6',text:"🗂️ The <strong>back room (Python + Flask)</strong> checks the information against the logbook and decides: “Table's free that night — let's lock it in!”"},
+  {node:'database',no:'7',text:"📒 The booking is written into the <strong>reservation logbook (database)</strong> — saved for good!"},
+  {node:'backend',no:'8',text:"✅ The <strong>back room</strong> sends back a “Confirmed!” — only now that the space is truly secured."},
+  {node:'api',no:'9',text:"🤵 The <strong>waiter (API)</strong> carries the good news back across the restaurant."},
+  {node:'frontend',no:'10',text:"🎨 The <strong>reservation form (frontend)</strong> updates itself to the version of the display that shows the happy confirmation."},
+  {node:'browser',no:'11',text:"🍽️ The <strong>dining room (browser)</strong> paints that confirmation up on your screen."},
+  {node:'user',no:'12',text:"🎉 And <strong>you</strong>, the guest, see “Table booked!” — for REAL this time. THAT'S the full round trip your website was missing!"}
 ];
 let simIndex=-1; // -1 = not started
 function renderSim(){
@@ -780,7 +780,7 @@ const AI_SIM=[
   {node:'api',no:'2',text:"🤵 The <strong>waiter (API)</strong> carries your request back toward the back room."},
   {node:'backend',no:'3',text:"🗂️ The <strong>back room (Python + Flask)</strong> sees this needs real creativity — time to call the concierge!"},
   {node:'ai',no:'4',text:"✨ The <strong>concierge (AI / LLM)</strong> dreams up a one-of-a-kind plan, made just for your vibe…"},
-  {node:'backend',no:'5',text:"🗂️ The <strong>back room</strong> takes the concierge's idea and packages it up beautifully."},
+  {node:'backend',no:'6',text:"🗂️ The <strong>back room</strong> takes the concierge's idea and packages it up beautifully."},
   {node:'frontend',no:'6',text:"🎉 Back through the waiter, onto your screen — here's your custom plan. Enjoy, then go have fun!"}
 ];
 let aiIndex=-1;
