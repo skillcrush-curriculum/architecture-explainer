@@ -373,8 +373,7 @@
         <div id="revealWait">
           <span class="stamp">👈</span>
           <h3>Looks just like the website, right?</h3>
-          <p>Fill out the form and click <span class="feature">Book My Table</span>. You'll get a happy confirmation message…</p>
-          <p class="muted">…and then we'll ask one sneaky little question.</p>
+          <p>Fill out the form and click <span class="feature">Book My Table</span>.</p>
         </div>
 
         <div class="reveal-result" id="revealResult">
@@ -427,7 +426,7 @@
   <section class="panel" data-panel="2">
     <div class="eyebrow">Step 3 · Follow The Booking 📦</div>
     <h2>Now watch a <em>real</em> booking travel through the restaurant</h2>
-    <p class="lead">Last time, your booking stopped at the front door. In a <span class="feature">complete</span> web app, your order travels all the way through the restaurant and back. Tap <span class="feature">Next</span> to follow your order to each stop.</p>
+    <p class="lead">Last time, your booking stopped at the front door. In a <span class="feature">complete</span> web app, your order travels all the way through the restaurant and back. Tap <span class="feature">Begin</span> below to start the booking flow and tap <span class="feature">Next</span> to follow your order to each stop.</p>
 
     <div id="diagramHost2"></div>
 
@@ -460,7 +459,7 @@
   <section class="panel" data-panel="3">
     <div class="eyebrow">Bonus · Add Some AI ✨</div>
     <h2>The restaurant calls in a personal concierge 🛎️</h2>
-    <p class="lead">Pick a day and a vibe — the <strong>AI concierge</strong> plans your afternoon. Tap <span class="feature">Next</span> to follow your request to the concierge!</p>
+    <p class="lead">The restaurant wants to step-up the services it provides for esteemed guests like you and decides to bring in an event planning concierge! Pick a day and a vibe — the <strong>AI concierge</strong> will plan your afternoon. Tap <span class="feature">Next</span> to follow your request to the concierge!</p>
 
     <div class="planner">
       <div class="planner-card">
@@ -532,15 +531,15 @@ const NODES = {
   browser:{name:'The Dining Room',tag:'Chrome, Safari…',badge:null,
     body:"The browser is the dining room you step into — Chrome, Safari, or Firefox. 🍽️ It's the space where the whole experience is set out in front of you: the lighting, the tables, the menus. The website for Sunny Side Kitchen is the virtual representation of the dining room that you can see in the browser!"},
   frontend:{name:'The Menu & Décor',tag:'HTML, CSS, JS, React.js',badges:['Semantic HTML','Responsive CSS','JavaScript','React'],
-    body:"The frontend is everything you see and touch once you're seated — the menu, the décor, the organization of the tables. 🎨 It's the part designed to look lovely and be easy to use. All the languages used to build this display in your browser come together inside the framework React, a tool that lets you create the representation of restaurant on the website from small reusable and organized pieces — like a place setting you can lay out at every table. 🍴 The pretty Sunny Side page I made? That's all mood and décor!"},
+    body:"The front end is the code that builds everything you see and touch once you're seated — the menu, the décor, the organization of the tables. 🎨 It's all about the part designed to look lovely and be easy to use. HTML, CSS, and JavaScript are used to build this display in your browser and they come together with React, a framework that lets you create the representation of restaurant on the website from small reusable and organized pieces — like a place setting you can lay out at every table. 🍴 The pretty Sunny Side page I made? That's all mood and décor built from small organized pieces!"},
   api:{name:'The Waiter',tag:'API',badge:'API',
-    body:"Now this is where it gets interesting. So you made a virtual request for a table on the Sunny Side website — in a fully functioning website, it's like you passed along your request to a tiny virtual waiter.<br><br>The waiter is the messenger. 🤵 You don't walk into the back room yourself — you hand your reservation request to the waiter, who carries it to the back and returns with an answer. The API does exactly this: it carries your request from the form (frontend) to the back room (backend) and brings the response back. The waiter follows a polite set of rules for how the front of house and the back room talk."},
+    body:"Now this is where it gets interesting. So you made a virtual request for a table with the Sunny Side website form. But since your website was built with the front end ONLY, nothing happened. In a fully functioning website, your table request would be passed along to the API which functions like a tiny virtual waiter.<br><br>The waiter is the messenger. 🤵 You don't walk into the back room yourself — you hand your reservation request to the waiter, who carries it to the back and returns with an answer. The API does exactly this: it carries your request from the form (frontend) to the back room (backend) and brings the response back. The waiter follows a polite set of rules for how the front of house and the back room talk."},
   backend:{name:'The Back Room',tag:'Python + Flask',badges:['Python','Flask'],
-    body:"The back room is where the real decisions happen, out of sight. 🗂️ &ldquo;Is there a table free that night? Yes — let's lock it in!&rdquo; This is the brain of the restaurant. It receives your request, checks the logbook, applies the rules, and assembles an answer — all without you ever seeing how. That's exactly what Python does: it processes requests, runs the logic, and talks to the logbook. Flask is the back room's organization system — making sure the right request reaches the right place and the right answer comes back out. It's the key piece your website was missing!"},
+    body:"The back room is where the real decisions happen, out of sight. 🗂️ &ldquo;Is there a table free that night? Yes — let's lock it in!&rdquo; Back end languages like Python and the Python framework Flask make up the brain of the restaurant. In the back room, your request is received, checked against the logbook, any rules are applied, and an answer is assembled — all without you ever seeing how. That's exactly what Python does: it processes requests, runs the logic, and talks to the logbook. Flask is the back room's organization system — making sure the right request reaches the right place and the right answer comes back out. This is the key piece your website was missing!"},
   database:{name:'The Logbook',tag:'Stores everything',badge:null,
     body:"The logbook is the restaurant's memory — the big reservation book 📒 where everything important is written down and kept. Bookings, guest details, dates — all stored here so they're still there tomorrow. Without it, the back room would forget every reservation the second it was made!"},
   auth:{name:'The Host',tag:'Checks the request',badge:null,
-    body:"Before any reservation gets made, the request stops at the host. 🛎️ The host looks over the details coming in — &ldquo;Is this card filled out properly? A real date, a sensible party size, a valid email? Are we even open that night?&rdquo; — and only waves it through once everything checks out. On a website, this is the gatekeeping step that verifies a request is complete and allowed <em>before</em> the back room acts on it. Keeping every guest safe and sorted!"},
+    body:"Before any reservation gets made, the request stops at the host. 🛎️ The host looks over the details coming in — &ldquo;Is this card filled out properly? A real date, a sensible party size, a valid email? Are we even open that night?&rdquo; — and only waves it through once everything checks out. On a website, this is the gatekeeping step that verifies a request is complete and allowed <em>before</em> the back room acts on it. This keeps every guest safe and sorted!"},
   ai:{name:'The Concierge',tag:'Generative AI (LLM)',badge:'LLM',
     body:"This is the magic ✨ — a brilliant concierge the restaurant can call on at any moment, like the AI brain behind tools such as Claude. 🛎️ Ask it to plan something on the spot — say, a custom day out for an esteemed guest — and it dreams up a fresh, personalized itinerary instantly. It's a whole new service that plugs into your restaurant, and learning to wire one in is what our final course, Generative AI Web Apps, is all about!"}
 };
@@ -669,7 +668,7 @@ function bookTable(){
 
 /* ─────────────── STEP 3: simulation ─────────────── */
 const SIM=[
-  {node:'user',no:'1',text:"🙋 <strong>You</strong>, the guest, decide to book a table and fill in the little reservation card."},
+  {node:'user',no:'1',text:"🙋 <strong>You</strong>, the guest, decide you would like to check out the farm fresh food at Sunny Side Kitchen! It's always busy, so you think it's smart to reserve a table."},
   {node:'frontend',no:'2',text:"🎨 The <strong>reservation form (frontend / React)</strong> neatly bundles up your name, date and party size into one tidy request."},
   {node:'api',no:'3',text:"🤵 The <strong>waiter (API)</strong> picks up your request and hurries it toward the back of the restaurant."},
   {node:'auth',no:'4',text:"🛎️ First stop — the <strong>host</strong> looks over your request: “Card filled out right? Date works? Approved!” ✅ Now it can head to the back room."},
@@ -677,7 +676,7 @@ const SIM=[
   {node:'database',no:'6',text:"📒 The booking is written into the <strong>reservation logbook (database)</strong> — saved for good!"},
   {node:'backend',no:'7',text:"✅ The <strong>back room</strong> sends back a “Confirmed!” — only now that the space is truly secured."},
   {node:'api',no:'8',text:"🤵 The <strong>waiter (API)</strong> carries the good news back across the restaurant."},
-  {node:'frontend',no:'9',text:"🎨 The <strong>reservation form (frontend)</strong> updates itself with a happy confirmation."},
+  {node:'frontend',no:'9',text:"🎨 The <strong>reservation form (frontend)</strong> updates itself to the version of the display that shows the happy confirmation."},
   {node:'browser',no:'10',text:"🍽️ The <strong>dining room (browser)</strong> paints that confirmation up on your screen."},
   {node:'user',no:'11',text:"🎉 And <strong>you</strong>, the guest, see “Table booked!” — for REAL this time. THAT'S the full round trip your website was missing!"}
 ];
@@ -801,7 +800,7 @@ function planDay(){ // "Send It To The Concierge!" — starts the journey
       <span class="i">i</span>
       <div class="tip-body">
         <strong>Note</strong>
-        <p>This was just a simulation with fixed responses for each Vibe option! A real LLM is magic because it can dynamically consider how your vibe preference might apply to different activity options in the area then do things like consider the weather for the date you chose, AND combine all this with patterns for what people like to do on rainy days vs sunny - all in the name of planning you the perfect day! ✨ You'll build an app like this in our Generative AI Web Apps course!</p>
+        <p>This is just a simulation with set responses for each Vibe option! A real LLM is magic because it can dynamically consider how your vibe preference might apply to different activity options in the area, then do things like consider the weather for the date you chose, AND combine all this with patterns for what people like to do on rainy days vs sunny - all in the name of planning you the perfect day! ✨ You'll build an app like this in our Generative AI Web Apps course!</p>
       </div>
     </div>`;
   document.getElementById('planBtn').disabled=true;
