@@ -45,6 +45,21 @@
     border-left:1px solid var(--line);border-right:1px solid var(--line);
   }
 
+  /* hero / top bar */
+  .hero{
+    background:var(--hero);padding:11px 22px;border-bottom:1px solid var(--line);
+    display:flex;align-items:center;gap:14px;flex:none;
+  }
+  .hero-top{display:flex;align-items:center;flex:none;}
+  .logo{height:34px;width:auto;display:block;}
+  .logo-fallback{font-family:'Montserrat';font-weight:900;font-size:.9rem;letter-spacing:.02em;color:var(--ink);display:none;line-height:1;}
+  .logo-fallback span{color:var(--coral-dark);font-weight:700;}
+  .hero-title{border-left:2px solid #cdeaea;padding-left:14px;}
+  .hero h1{font-weight:900;font-size:1.1rem;line-height:1.1;}
+  .hero h1 em{font-style:italic;}
+  .hero .sub{display:none;}
+  .lesson-kicker{display:none;}
+
   /* stepper */
   .stepper-wrap{flex:none;}
   .stepper{display:flex;border-bottom:1px solid var(--line);background:#fff;}
@@ -297,6 +312,18 @@
 <body>
 
 <div class="app">
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-top">
+    <img class="logo" src="https://raw.githubusercontent.com/skillcrush-curriculum/skillcrush-by-ptf-logo/main/skillcrush-by-ptf-2x.png" alt="Skillcrush by PowerToFly logo"
+         onerror="this.style.display='none';document.getElementById('logoFb').style.display='block';">
+    <div class="logo-fallback" id="logoFb">SKILLCRUSH<span> by </span>PTF</div>
+  </div>
+  <div class="hero-title">
+    <h1>Website Architecture Explainer</h1>
+  </div>
+</header>
 
 <!-- STEPPER -->
 <div class="stepper-wrap">
