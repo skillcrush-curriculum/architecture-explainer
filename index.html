@@ -476,7 +476,7 @@
       <span class="i">i</span>
       <div class="tip-body">
         <strong>Why This Matters</strong>
-        <p>Every step involves a real conversation between layers. When something breaks, developers follow this <em>exact</em> path to hunt down the problem — like detectives! 🕵️</p>
+        <p>Every step involves a real conversation between layers. When something breaks, developers follow this <em>exact</em> path to hunt down the problem just like detectives! 🕵️</p>
       </div>
     </div>
 
@@ -558,19 +558,19 @@ const ICONS = {
 
 const NODES = {
   user:{name:'You',tag:'A guest!',badge:null,
-    body:"That's you — a potential restaurant guest who wants something, like booking a table at Sunny Side Kitchen. 🙋 Every single part of the restaurant exists to take care of this one person: YOU!"},
+    body:"That's you! You are a potential restaurant guest who wants something, like booking a table at Sunny Side Kitchen. 🙋 Every single part of the restaurant exists to take care of this one person: YOU!"},
   browser:{name:'The Dining Room',tag:'Chrome, Safari…',badge:null,
-    body:"The browser is the dining room you step into — Chrome, Safari, or Firefox. 🍽️ It's the space where the whole experience is set out in front of you: the lighting, the tables, the menus. The website for Sunny Side Kitchen is the virtual representation of the dining room that you can see in the browser!"},
+    body:"The browser is the dining room you step into. The most common are Chrome, Safari, or Firefox. 🍽️ It's the space where the whole experience is set out in front of you: the lighting, the tables, the menus. The website for Sunny Side Kitchen is the virtual representation of the dining room that you can see in the browser!"},
   frontend:{name:'The Menu & Décor',tag:'HTML, CSS, JS, React.js',badges:['Semantic HTML','Responsive CSS','JavaScript','React'],
-    body:"The front end is the code that builds everything you see and touch once you're seated — the menu, the décor, the organization of the tables. 🎨 It's all about the part designed to look lovely and be easy to use. HTML, CSS, and JavaScript are used to build this display in your browser and they come together with React, a framework that lets you create the representation of restaurant on the website from small reusable and organized pieces — like a place setting you can lay out at every table. 🍴 The pretty Sunny Side page I made? That's all mood and décor built from small organized pieces!"},
+    body:"The front end is the code that builds everything you see and touch once you're seated: the menu, the décor, the organization of the tables. 🎨 It's all about the part designed to look lovely and be easy to use. HTML, CSS, and JavaScript are used to build this display in your browser and they come together with React, a framework that lets you create the representation of the restaurant on the website from small reusable and organized pieces — like a place setting you can lay out at every table. 🍴 The pretty Sunny Side page I made? That's all mood and décor built from small organized pieces!"},
   api:{name:'The Waiter',tag:'API',badge:'API',
     body:"Now this is where it gets interesting. So you made a virtual request for a table with the Sunny Side website form. But since your website was built with the front end ONLY, nothing happened. In a fully functioning website, your table request would be passed along to the API which functions like a tiny virtual waiter.<br><br>The waiter is the messenger. 🤵 You don't walk into the back room yourself — you hand your reservation request to the waiter, who carries it to the back and returns with an answer. The API does exactly this: it carries your request from the form (front end) to the back room (back end) and brings the response back. The waiter follows a polite set of rules for how the front of house and the back room talk."},
   backend:{name:'The Back Room',tag:'Python + Flask',badges:['Python','Flask'],
     body:"The back room is where the real decisions happen, out of sight. 🗂️ &ldquo;Is there a table free that night? Yes — let's lock it in!&rdquo; Back end languages like Python and the Python framework Flask make up the brain of the restaurant. In the back room, your request is received, checked against the logbook, any rules are applied, and an answer is assembled — all without you ever seeing how. That's exactly what Python does: it processes requests, runs the logic, and talks to the logbook. Flask is the back room's organization system — making sure the right request reaches the right place and the right answer comes back out. This is the key piece your website was missing!"},
   database:{name:'The Logbook',tag:'Stores everything',badge:null,
-    body:"The logbook is the restaurant's memory — the big reservation book 📒 where everything important is written down and kept. Bookings, guest details, dates — all stored here so they're still there tomorrow. Without it, the back room would forget every reservation the second it was made!"},
+    body:"The logbook is the restaurant's memory 📒 where everything important is written down and kept. Bookings, guest details, dates are all stored here so they're still there tomorrow. Without it, the back room would forget every reservation the second it was made!"},
   auth:{name:'The Host',tag:'Checks the request',badge:null,
-    body:"Before any reservation gets made, the request stops at the host. 🛎️ The host looks over the details coming in — &ldquo;Is this card filled out properly? A real date, a sensible party size, a valid email? Are we even open that night?&rdquo; — and only waves it through once everything checks out. On a website, this is the gatekeeping step that verifies a request is complete and allowed <em>before</em> the back room acts on it. This keeps every guest safe and sorted!"},
+    body:"Before any reservation gets made, the request stops at the host. 🛎️ The host looks over the details coming in like &ldquo;Is this card filled out properly? A real date, a sensible party size, a valid email? Are we even open that night?&rdquo;. A booking is only waved through once everything checks out. On a website, this is the gatekeeping step that verifies a request is complete and allowed <em>before</em> the back room acts on it. This keeps every guest safe and sorted!"},
   ai:{name:'The Concierge',tag:'Generative AI (LLM)',badge:'LLM',
     body:"This is the magic ✨ — a brilliant concierge the restaurant can call on at any moment, like the AI brain behind tools such as Claude. 🛎️ Ask it to plan something on the spot — say, a custom day out for an esteemed guest — and it dreams up a fresh, personalized itinerary instantly. It's a whole new service that plugs into your restaurant, and learning to wire one in is what our final course, Generative AI Web Apps, is all about!"}
 };
@@ -703,10 +703,10 @@ const SIM=[
   {node:'browser',no:'2',text:"🍽️ You checkout the virtual representation for the restaurant (the website!) on your <strong>browser</strong> and fill out the reservation form."},
   {node:'frontend',no:'3',text:"🎨 The <strong>reservation form (front end / React)</strong> neatly bundles up your name, date and party size into one tidy request."},
   {node:'api',no:'4',text:"🤵 The <strong>waiter (API)</strong> picks up your request and hurries it toward the back of the restaurant."},
-  {node:'auth',no:'5',text:"🛎️ First stop — the <strong>host</strong> looks over your request: “Card filled out right? Date works? Approved!” ✅ Now it can head to the back room."},
-  {node:'backend',no:'6',text:"🗂️ The <strong>back room (Python + Flask)</strong> checks the information against the logbook and decides: “Table's free that night — let's lock it in!”"},
-  {node:'database',no:'7',text:"📒 The booking is written into the <strong>reservation logbook (database)</strong> — saved for good!"},
-  {node:'backend',no:'8',text:"✅ The <strong>back room</strong> sends back a “Confirmed!” — only now that the space is truly secured."},
+  {node:'auth',no:'5',text:"🛎️ First stop! The <strong>host</strong> looks over your request: “Card filled out right? Date works? Approved!” ✅ Now it can head to the back room."},
+  {node:'backend',no:'6',text:"🗂️ The <strong>back room (Python + Flask)</strong> checks the information against the logbook and decides: “Table's free that night? Yes, let's lock it in!”"},
+  {node:'database',no:'7',text:"📒 The booking is written into the <strong>reservation logbook (database)</strong> and is now saved somewhere accessible to the rest of the staff!"},
+  {node:'backend',no:'8',text:"✅ The <strong>back room</strong> sends back a “Confirmed!” but only now that the space is truly secured."},
   {node:'api',no:'9',text:"🤵 The <strong>waiter (API)</strong> carries the good news back across the restaurant."},
   {node:'frontend',no:'10',text:"🎨 The <strong>reservation form (front end)</strong> updates itself to the version of the display that shows the happy confirmation."},
   {node:'browser',no:'11',text:"🍽️ The <strong>dining room (browser)</strong> paints that confirmation up on your screen."},
@@ -808,12 +808,12 @@ const PLANS={
 };
 
 const AI_SIM=[
-  {node:'frontend',no:'1',text:"🎨 You tell the <strong>reservation form (front end / React)</strong> your day and your vibe — your special request gets bundled up."},
+  {node:'frontend',no:'1',text:"🎨 You tell the <strong>reservation form (front end / React)</strong> your day and your vibe and your special request gets bundled up."},
   {node:'api',no:'2',text:"🤵 The <strong>waiter (API)</strong> carries your request back toward the back room."},
-  {node:'backend',no:'3',text:"🗂️ The <strong>back room (Python + Flask)</strong> sees this needs real creativity — time to call the concierge!"},
+  {node:'backend',no:'3',text:"🗂️ The <strong>back room (Python + Flask)</strong> sees this a request for their planning specialist. Time to call the concierge!"},
   {node:'ai',no:'4',text:"✨ The <strong>concierge (AI / LLM)</strong> dreams up a one-of-a-kind plan, made just for your vibe…"},
   {node:'backend',no:'6',text:"🗂️ The <strong>back room</strong> takes the concierge's idea and packages it up beautifully."},
-  {node:'frontend',no:'6',text:"🎉 Back through the waiter, onto your screen — here's your custom plan. Enjoy, then go have fun!"}
+  {node:'frontend',no:'6',text:"🎉 Back through the waiter, onto your screen. Here's your custom plan. Enjoy, then go have fun!"}
 ];
 let aiIndex=-1;
 let aiResultHTML='';
