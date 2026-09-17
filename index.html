@@ -324,7 +324,8 @@
   }
   .tip .tip-body strong{font-family:'Montserrat';text-transform:uppercase;letter-spacing:.04em;font-size:.62rem;display:inline;margin-right:6px;color:#1a6a93;}
   .tip .tip-body p{margin:0;font-size:.76rem;color:#13455e;line-height:1.4;display:inline;}
-  /* ─────────── RESPONSIVE: tablet / mobile (no dashboard menu visible here) ─────────── */
+
+  /* ─────────── RESPONSIVE: tablet / mobile (no dashboard menu visible here) ─────────── */
   @media(max-width:640px){
     .step-tab{flex-direction:column;align-items:center;text-align:center;gap:5px;padding:8px 6px;}
     .step-tab .step-meta{text-align:center;}
@@ -400,7 +401,7 @@
       <div class="ssk">
         <div id="formWrap">
           <h3 class="form-title">Book a Table 🍽️</h3>
-          <p class="form-sub">Reserve your spot in just a few clicks. We'll confirm your booking via email — see you soon! ☀️</p>
+          <p class="form-sub">Reserve your spot in just a few clicks. We'll confirm your booking via email. See you soon! ☀️</p>
           <div class="form-row">
             <div class="form-group"><label>First Name</label><input id="f_name" type="text" placeholder="Maya"></div>
             <div class="form-group"><label>Party Size</label>
@@ -438,7 +439,7 @@
           <span class="stamp">👻</span>
           <h3>But wait… where did that booking actually GO?</h3>
           <p><strong>Nowhere.</strong> The website happily threw confetti… but <span class="feature">nobody wrote the booking down.</span> No email was sent. The restaurant has <em>no idea</em> you are coming!</p>
-          <p>Why? Because a pretty page is only <strong>one layer</strong> of a real web app. The button looked like it worked — but there was nothing behind it to do the actual work.</p>
+          <p>Why? Because a pretty page is only <strong>one layer</strong> of a real web app. The button looked like it worked, but there was nothing behind it to do the actual work.</p>
           <p style="margin-bottom:0;">Let's meet <em>all</em> the layers that make a website truly come alive.</p>
         </div>
       </div>
@@ -461,7 +462,7 @@
   <section class="panel" data-panel="1">
     <div class="eyebrow">Step 2 · Meet The Team 🧩</div>
     <h2>A website works just like a busy restaurant 🍽️</h2>
-    <p class="lead">Every part of Sunny Side Kitchen has one important job — and a website is built the exact same way! <span class="feature">Tap any box</span> below to meet that part of the restaurant and find out why it matters.</p>
+    <p class="lead">Every part of Sunny Side Kitchen has one important job, and a website is built the exact same way! <span class="feature">Tap any box</span> below to meet that part of the restaurant and find out why it matters.</p>
 
     <div class="stage-hint">👇🏼 Tap a box to explore it</div>
     <div id="diagramHost"></div>
@@ -517,7 +518,7 @@
   <section class="panel" data-panel="3">
     <div class="eyebrow">Bonus · Add Some AI ✨</div>
     <h2>The restaurant calls in a personal concierge 🛎️</h2>
-    <p class="lead">The restaurant wants to step-up the services it provides for esteemed guests like you and decides to bring in an event planning concierge! Pick a day and a vibe — the <strong>AI concierge</strong> will plan your afternoon. Tap <span class="feature">Next</span> to follow your request to the concierge!</p>
+    <p class="lead">The restaurant wants to step-up the services it provides for esteemed guests like you and decides to bring in an event planning concierge! Pick a day and a vibe and the <strong>AI concierge</strong> will plan your afternoon. Tap <span class="feature">Next</span> to follow your request to the concierge!</p>
 
     <div class="planner">
       <div class="planner-card">
@@ -589,17 +590,17 @@ const NODES = {
   browser:{name:'The Dining Room',tag:'Chrome, Safari…',badge:null,
     body:"The browser is the dining room you step into. The most common are Chrome, Safari, or Firefox. 🍽️ It's the space where the whole experience is set out in front of you: the lighting, the tables, the menus. The website for Sunny Side Kitchen is the virtual representation of the dining room that you can see in the browser!"},
   frontend:{name:'The Menu & Décor',tag:'HTML, CSS, JS, React.js',badges:['Semantic HTML','Responsive CSS','JavaScript','React'],
-    body:"The front end is the code that builds everything you see and touch once you're seated: the menu, the décor, the organization of the tables. 🎨 It's all about the part designed to look lovely and be easy to use. HTML, CSS, and JavaScript are used to build this display in your browser and they come together with React, a framework that lets you create the representation of the restaurant on the website from small reusable and organized pieces — like a place setting you can lay out at every table. 🍴 The pretty Sunny Side page I made? That's all mood and décor built from small organized pieces!"},
+    body:"The front end is the code that builds everything you see and touch once you're seated: the menu, the décor, the organization of the tables. 🎨 It's all about the part designed to look lovely and be easy to use. HTML, CSS, and JavaScript are used to build this display in your browser and they come together with React, a framework that lets you create the representation of the restaurant on the website from small reusable and organized pieces, like a place setting you can lay out at every table. 🍴 The pretty Sunny Side page I made? That's all mood and décor built from small organized pieces!"},
   api:{name:'The Waiter',tag:'API',badge:'API',
-    body:"Now this is where it gets interesting. So you made a virtual request for a table with the Sunny Side website form. But since your website was built with the front end ONLY, nothing happened. In a fully functioning website, your table request would be passed along to the API which functions like a tiny virtual waiter.<br><br>The waiter is the messenger. 🤵 You don't walk into the back room yourself — you hand your reservation request to the waiter, who carries it to the back and returns with an answer. The API does exactly this: it carries your request from the form (front end) to the back room (back end) and brings the response back. The waiter follows a polite set of rules for how the front of house and the back room talk."},
+    body:"Now this is where it gets interesting. So you made a virtual request for a table with the Sunny Side website form. But since your website was built with the front end ONLY, nothing happened. In a fully functioning website, your table request would be passed along to the API which functions like a tiny virtual waiter.<br><br>The waiter is the messenger. 🤵 You don't walk into the back room yourself, you hand your reservation request to the waiter, who carries it to the back and returns with an answer. The API does exactly this: it carries your request from the form (front end) to the back room (back end) and brings the response back. The waiter follows a polite set of rules for how the front of house and the back room talk."},
   backend:{name:'The Back Room',tag:'Python + Flask',badges:['Python','Flask'],
-    body:"The back room is where the real decisions happen, out of sight. 🗂️ &ldquo;Is there a table free that night? Yes — let's lock it in!&rdquo; Back end languages like Python and the Python framework Flask make up the brain of the restaurant. In the back room, your request is received, checked against the logbook, any rules are applied, and an answer is assembled — all without you ever seeing how. That's exactly what Python does: it processes requests, runs the logic, and talks to the logbook. Flask is the back room's organization system — making sure the right request reaches the right place and the right answer comes back out. This is the key piece your website was missing!"},
+    body:"The back room is where the real decisions happen, out of sight. 🗂️ &ldquo;Is there a table free that night? Yes, let's lock it in!&rdquo; Back end languages like Python and the Python framework Flask make up the brain of the restaurant. In the back room, your request is received, checked against the logbook, any rules are applied, and an answer is assembled — all without you ever seeing how. That's exactly what Python does: it processes requests, runs the logic, and talks to the logbook. Flask is the back room's organization system by making sure the right request reaches the right place and the right answer comes back out. This is the key piece your website was missing!"},
   database:{name:'The Logbook',tag:'Stores everything',badge:null,
     body:"The logbook is the restaurant's memory 📒 where everything important is written down and kept. Bookings, guest details, dates are all stored here so they're still there tomorrow. Without it, the back room would forget every reservation the second it was made!"},
   auth:{name:'The Host',tag:'Checks the request',badge:null,
     body:"Before any reservation gets made, the request stops at the host. 🛎️ The host looks over the details coming in like &ldquo;Is this card filled out properly? A real date, a sensible party size, a valid email? Are we even open that night?&rdquo;. A booking is only waved through once everything checks out. On a website, this is the gatekeeping step that verifies a request is complete and allowed <em>before</em> the back room acts on it. This keeps every guest safe and sorted!"},
   ai:{name:'The Concierge',tag:'Generative AI (LLM)',badge:'LLM',
-    body:"This is the magic ✨ — a brilliant concierge the restaurant can call on at any moment, like the AI brain behind tools such as Claude. 🛎️ Ask it to plan something on the spot — say, a custom day out for an esteemed guest — and it dreams up a fresh, personalized itinerary instantly. It's a whole new service that plugs into your restaurant, and learning to wire one in is what our final course, Generative AI Web Apps, is all about!"}
+    body:"This is the magic ✨ — a brilliant concierge the restaurant can call on at any moment, like the AI brain behind tools such as Claude. 🛎️ Ask it to plan something on the spot, for example a custom day out for an esteemed guest, and it dreams up a fresh, personalized itinerary instantly. It's a whole new service that plugs into your restaurant, and learning to wire one in is what our final course, Generative AI Web Apps, is all about!"}
 };
 
 /* ─────────────── BUILD DIAGRAM ─────────────── */
